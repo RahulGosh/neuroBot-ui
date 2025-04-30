@@ -56,12 +56,12 @@ const AiPage = () => {
   };
 
   return (
-    <div className="h-full flex flex-col lg:flex-row bg-white dark:bg-dark-header transition-colors duration-200">
+    <div className="h-full flex flex-col lg:flex-row bg-light-sidebar dark:bg-dark-header transition-colors duration-200">
       <div className="w-full lg:w-1/2 flex-1 order-1 lg:order-2">
         <ResponseSection messages={messages} isLoading={isLoading} />
       </div>
       
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center border-t lg:border-t-0 lg:border-r border-gray-200 dark:border-gray-700 p-4 order-2 lg:order-1">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center border-t lg:border-t-0 lg:border-r border-gray-300 dark:border-gray-700 p-4 order-2 lg:order-1">
         <InputSection onSendMessage={handleSendMessage} />
       </div>
     </div>

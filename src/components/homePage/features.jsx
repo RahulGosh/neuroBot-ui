@@ -2,35 +2,35 @@ import { motion } from 'framer-motion';
 
 const features = [
   {
-    title: "Intelligent Conversation",
-    description: "Engage in natural, flowing conversations with advanced AI responses.",
-    icon: "💬"
+    title: "Document Analysis",
+    description: "Automatically review and analyze legal documents for key clauses and risks.",
+    icon: "📄"
   },
   {
-    title: "Question Answering",
-    description: "Receive accurate, detailed answers to your complex questions.",
-    icon: "❓"
+    title: "Case Research",
+    description: "Quickly find relevant case law and precedents with AI-powered search.",
+    icon: "🔍"
   },
   {
-    title: "Personalized Responses",
-    description: "Experience AI that adapts to your conversation style and preferences.",
-    icon: "👤"
+    title: "Contract Automation",
+    description: "Generate and customize legal contracts with smart templates.",
+    icon: "✍️"
   },
   {
-    title: "Content Generation",
-    description: "Create stories, articles, and creative content with AI assistance.",
-    icon: "✨"
+    title: "Compliance Check",
+    description: "Ensure documents meet current regulatory requirements automatically.",
+    icon: "✅"
   },
   {
-    title: "Problem Solving",
-    description: "Work through complex problems with step-by-step AI guidance.",
-    icon: "🧩"
+    title: "Legal Drafting",
+    description: "Create precise legal documents with AI-assisted drafting tools.",
+    icon: "⚖️"
   },
   {
-    title: "Learning Companion",
-    description: "Study any subject with an AI that explains concepts clearly.",
-    icon: "📚"
-  }
+    title: "Client Intake",
+    description: "Streamline client onboarding with automated forms and analysis.",
+    icon: "👥"
+  },
 ];
 
 const Features = ({id}) => {

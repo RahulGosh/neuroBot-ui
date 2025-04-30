@@ -3,44 +3,44 @@ import { useState, useEffect } from "react";
 
 const faqs = [
   {
-    question: "How does NeuroBot differ from other AI writing tools?",
+    question: "How does LegalAssist differ from other legal tech solutions?",
     answer:
-      "NeuroBot combines advanced natural language processing with contextual understanding to provide more accurate suggestions than basic grammar checkers. Our AI adapts to your writing style and offers real-time, in-depth improvements rather than just surface-level corrections.",
+      "LegalAssist combines advanced natural language processing with legal expertise to provide more accurate document analysis than basic legal software. Our AI understands legal context and precedent to offer real-time, in-depth insights rather than just surface-level document processing.",
   },
   {
-    question: "What security measures protect my documents?",
+    question: "What security measures protect my legal documents?",
     answer:
-      "We use end-to-end encryption for all documents in transit and at rest. Your content is never used for training our models without explicit consent, and we comply with GDPR and CCPA regulations. Enterprise plans offer additional security controls and private cloud deployment options.",
+      "We implement bank-level encryption for all legal documents in transit and at rest. Your content is never used for training our models without explicit consent, and we maintain strict compliance with GDPR, CCPA, and industry-specific regulations like HIPAA. Enterprise plans offer additional security controls including private cloud deployment options and client-matter segregation.",
   },
   {
-    question: "Can NeuroBot help with technical or academic writing?",
+    question: "Can LegalAssist handle specialized legal documentation?",
     answer:
-      "Absolutely. NeuroBot has specialized modes for technical documentation, academic papers, and research writing. It can format citations (APA, MLA, Chicago), suggest domain-specific terminology, and ensure proper technical tone while maintaining readability.",
+      "Absolutely. LegalAssist has specialized modules for contract analysis, intellectual property documentation, compliance reporting, and litigation support. It can identify legal risks, suggest jurisdiction-specific language, and ensure regulatory compliance while maintaining professional legal standards.",
   },
   {
-    question: "How does the AI handle multiple languages?",
+    question: "How does the platform handle multiple jurisdictions?",
     answer:
-      "NeuroBot supports 25+ languages with native-level proficiency. The AI understands linguistic nuances, idiomatic expressions, and cultural context. Premium users can access real-time translation between supported languages while preserving original meaning.",
+      "LegalAssist supports legal frameworks from 25+ countries with jurisdiction-specific expertise. The AI understands regional legal differences, precedent variations, and regulatory requirements. Premium users can access cross-jurisdictional analysis to compare legal implications across different regions.",
   },
   {
-    question: "What integrations does NeuroBot offer?",
+    question: "What integrations does LegalAssist offer?",
     answer:
-      "We provide native integrations with Google Docs, Microsoft Word, Chrome, Slack, and most CMS platforms. Our API allows custom integration with any platform, and webhooks enable automated workflows with tools like Zapier and Make.",
+      "We provide native integrations with major practice management systems, document management solutions, and e-discovery platforms including Clio, Relativity, and NetDocuments. Our API allows custom integration with any legal workflow, and secure webhooks enable automated processes with existing firm infrastructure.",
   },
   {
-    question: "How does the pricing model work for teams?",
+    question: "How does the pricing model work for law firms?",
     answer:
-      "Team plans offer scalable pricing based on active users, with volume discounts for larger organizations. Enterprise plans include dedicated support, custom model training, and advanced analytics. All plans come with a 30-day money-back guarantee.",
+      "Firm plans offer scalable pricing based on active attorneys and paralegals, with volume discounts for larger practices. Enterprise plans include dedicated legal success managers, custom legal model training, and advanced matter analytics. All plans come with a 30-day money-back guarantee.",
   },
   {
-    question: "Can I train NeuroBot on my company's style guide?",
+    question: "Can I train LegalAssist on my firm's precedents and templates?",
     answer:
-      "Yes, our Enterprise plan includes custom model training where you can upload style guides, past documents, and branding materials. The AI will learn your preferred terminology, tone, and formatting requirements within 2-3 weeks of training.",
+      "Yes, our Enterprise plan includes custom model training where you can upload previous case documents, standard templates, and firm-specific protocols. The AI will learn your firm's preferred legal approach, terminology, and formatting requirements within 2-3 weeks of training.",
   },
   {
-    question: "What's your policy on AI-generated content detection?",
+    question: "How does LegalAssist handle confidentiality and attorney-client privilege?",
     answer:
-      "NeuroBot includes an authenticity scoring system that helps make AI-assisted content appear more human-like. However, we recommend always adding your unique perspective. We don't guarantee content will pass detection systems, as these tools evolve constantly.",
+      "LegalAssist was built with legal ethics at its core. Our system maintains strict data segregation, preserving attorney-client privilege. All data processing occurs in SOC 2 Type II certified environments, and we provide comprehensive audit logs for compliance verification. Our terms of service explicitly preserve privilege and confidentiality protections.",
   },
 ];
 
@@ -88,7 +88,7 @@ const FAQ = ({ id = "faq" }) => {
           },
         },
       }}
-      className="py-16 px-4 md:px-8 lg:px-16"
+      className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
     >
       <motion.div
         variants={{

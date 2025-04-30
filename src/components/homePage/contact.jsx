@@ -124,7 +124,7 @@ const Contact = ({ id }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
+      className="py-16 px-4 md:px-8 lg:px-16"
     >
       <motion.div 
         variants={{

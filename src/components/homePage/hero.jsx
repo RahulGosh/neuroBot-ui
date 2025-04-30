@@ -5,6 +5,8 @@ import {
   FiLayers,
   FiCpu,
   FiActivity,
+  FiFileText,
+  FiSearch,
 } from "react-icons/fi";
 
 const Hero = ({ id }) => {
@@ -32,12 +34,12 @@ const Hero = ({ id }) => {
         className="md:w-1/2 mb-8 md:mb-0"
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Supercharge Your Writing with{" "}
-          <span className="text-emerald-500">AI</span>
+        Transform Your Legal Practice with{" "}
+        <span className="text-emerald-500">AI</span>
         </h1>
         <p className="text-lg mb-8 text-gray-600 dark:text-gray-300">
-          NeuroBot helps you write better, faster, and more effectively with
-          advanced AI assistance.
+        LexTech Pro empowers legal professionals with cutting-edge tools for document analysis, 
+        case research, and contract automation - all in one secure platform.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <Link
@@ -47,16 +49,16 @@ const Hero = ({ id }) => {
             whileTap={{ scale: 0.95 }}
             as={motion.div}
           >
-            Try NeuroBot Now
-          </Link>
+            Request Demo
+            </Link>
           <Link
-            to="#faq"
+            to="#features-section"
             className="px-6 py-3 border border-emerald-500 text-emerald-500 rounded-md hover:bg-emerald-50 dark:hover:bg-gray-700 transition-colors text-center font-medium"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             as={motion.div}
           >
-            Learn More
+            Explore Features
           </Link>
         </div>
       </motion.div>
@@ -211,9 +213,9 @@ const Hero = ({ id }) => {
                 transition={{ delay: 0.7 }}
               >
                 <div className="mr-3 p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
-                  <FiCpu className="text-blue-500" />
+                <FiFileText className="text-blue-600" />
                 </div>
-                <span>Advanced language processing</span>
+                <span>Automated document analysis</span>
               </motion.div>
 
               <motion.div
@@ -223,9 +225,10 @@ const Hero = ({ id }) => {
                 transition={{ delay: 0.9 }}
               >
                 <div className="mr-3 p-2 bg-purple-100 dark:bg-purple-800 rounded-full">
-                  <FiLayers className="text-purple-500" />
+                <FiSearch className="text-indigo-600" />
                 </div>
-                <span>Custom AI personalities</span>
+                <span>Intelligent case research</span>
+
               </motion.div>
             </div>
           </motion.div>

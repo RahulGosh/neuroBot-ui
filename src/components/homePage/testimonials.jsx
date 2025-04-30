@@ -76,7 +76,7 @@ const Testimonials = () => {
 
   return (
     <motion.section 
-      className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900 overflow-hidden"
+      className="py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
     >
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
