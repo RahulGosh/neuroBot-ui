@@ -12,11 +12,13 @@ import Contact from "./../components/homePage/contact";
 import { useCallback, useEffect, useState } from "react";
 import SecurityTrustSection from "./securityTrustSection";
 import HomePageHeader from "../components/homePage/layout/homePageHeader";
+import { useAuth } from "./authContext";
 
 const HomePage = () => {
   const { darkMode, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { user } = useAuth();
 
   const toggleSidebar = useCallback(() => {
     setSidebarOpen((prev) => !prev);
@@ -49,6 +51,12 @@ const HomePage = () => {
       }
     }
   }, [location]);
+
+  useEffect(() => {
+    if (user) {
+      console.log("User is logged in:", user.name);
+    }
+  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-dark-header text-light-text dark:text-dark-text">

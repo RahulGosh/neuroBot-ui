@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -14,16 +14,20 @@ import {
 } from "react-icons/fi";
 import { useAuth } from "../../../page/authContext";
 import { useTheme } from "../../../context/themeContext";
-import { IconButton } from "@mui/material";
 
 const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { darkMode, toggleTheme } = useTheme();
   const isChatPage = location.pathname === "/chat";
+
+  useEffect(() => {
+    setIsLoggedIn(!!user);
+  }, [user]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -36,6 +40,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
   const handleLogout = () => {
     logout();
     setIsProfileDropdownOpen(false);
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
@@ -83,15 +88,17 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
       transition={{ duration: 0.5 }}
       className="w-full px-4 py-[0.8rem] flex justify-between items-center sticky top-0 z-50 bg-white dark:bg-dark-header shadow-sm border-b border-gray-200 dark:border-gray-700"
     >
-      {/* Mobile View */}
-      <div className="w-full flex justify-between items-center md:hidden relative">
+      {/* Mobile View - Full width with edge-to-edge padding */}
+      <div className="w-full flex justify-between items-center md:hidden">
         <Link to="/" className="text-xl font-bold">
           NeuroBot
         </Link>
         <div className="flex items-center gap-2">
           <div className="relative">
             <button
-              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className={`p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                isLoggedIn ? "text-yellow-500" : ""
+              }`}
               onClick={toggleProfileDropdown}
               aria-label="User menu"
             >
@@ -232,8 +239,8 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
         </div>
       </div>
 
-      {/* Desktop View */}
-      <div className="hidden md:flex w-full max-w-7xl mx-auto items-center justify-between">
+      {/* Desktop View - Full width with edge-to-edge padding */}
+      <div className="hidden md:flex w-full px-4 items-center justify-between">
         <Link to="/" className="text-xl font-bold">
           NeuroBot
         </Link>
@@ -286,7 +293,9 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
           <div className="relative">
             <button
               onClick={toggleProfileDropdown}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                isLoggedIn ? "text-yellow-500" : ""
+              }`}
               aria-label="User menu"
             >
               {user ? (

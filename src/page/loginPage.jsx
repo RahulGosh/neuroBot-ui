@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff, FiLock, FiMail } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { fakeAuth } from "./../services/fakeAuthService";
 import { useTheme } from "../context/themeContext";
 import AuthHeader from "../components/auth/authHeader";
+import { useAuth } from "./authContext";
 
 const LoginPage = () => {
   const { darkMode } = useTheme();
+  const { login } = useAuth(); // Get login function from auth context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +27,7 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const result = await fakeAuth.login(email, password);
+      const result = await login(email, password); // Use the login function from auth context
       if (result.success) {
         navigate("/");
       } else {
@@ -34,11 +35,13 @@ const LoginPage = () => {
       }
     } catch (err) {
       setError("An error occurred during login");
+      console.error("Login error:", err);
     } finally {
       setLoading(false);
     }
   };
 
+  // Rest of your component remains the same...
   return (
     <div className={`flex flex-col min-h-screen ${
       darkMode
