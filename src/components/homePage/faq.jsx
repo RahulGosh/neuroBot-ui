@@ -3,45 +3,33 @@ import { useState, useEffect } from "react";
 
 const faqs = [
   {
-    question: "How does LegalAssist differ from other legal tech solutions?",
-    answer:
-      "LegalAssist combines advanced natural language processing with legal expertise to provide more accurate document analysis than basic legal software. Our AI understands legal context and precedent to offer real-time, in-depth insights rather than just surface-level document processing.",
+    question: "What makes NeuroBot different from other AI writing assistants?",
+    answer: "NeuroBot combines advanced natural language processing with domain-specific knowledge to provide more accurate and context-aware suggestions than generic writing tools."
   },
   {
-    question: "What security measures protect my legal documents?",
-    answer:
-      "We implement bank-level encryption for all legal documents in transit and at rest. Your content is never used for training our models without explicit consent, and we maintain strict compliance with GDPR, CCPA, and industry-specific regulations like HIPAA. Enterprise plans offer additional security controls including private cloud deployment options and client-matter segregation.",
+    question: "How does NeuroBot ensure the quality of its outputs?",
+    answer: "Our AI undergoes rigorous training with high-quality datasets and continuous feedback loops from expert users to maintain exceptional output standards."
   },
   {
-    question: "Can LegalAssist handle specialized legal documentation?",
-    answer:
-      "Absolutely. LegalAssist has specialized modules for contract analysis, intellectual property documentation, compliance reporting, and litigation support. It can identify legal risks, suggest jurisdiction-specific language, and ensure regulatory compliance while maintaining professional legal standards.",
+    question: "Can NeuroBot help with academic writing?",
+    answer: "Yes, NeuroBot has specialized modes for academic writing that can help with research papers, citations, and maintaining formal tone."
   },
   {
-    question: "How does the platform handle multiple jurisdictions?",
-    answer:
-      "LegalAssist supports legal frameworks from 25+ countries with jurisdiction-specific expertise. The AI understands regional legal differences, precedent variations, and regulatory requirements. Premium users can access cross-jurisdictional analysis to compare legal implications across different regions.",
+    question: "Is my data secure when using NeuroBot?",
+    answer: "Absolutely. We use end-to-end encryption and never store your sensitive information beyond what's necessary for service operation."
   },
   {
-    question: "What integrations does LegalAssist offer?",
-    answer:
-      "We provide native integrations with major practice management systems, document management solutions, and e-discovery platforms including Clio, Relativity, and NetDocuments. Our API allows custom integration with any legal workflow, and secure webhooks enable automated processes with existing firm infrastructure.",
+    question: "How often is NeuroBot updated with new features?",
+    answer: "We release major updates monthly, with smaller improvements and bug fixes deployed continuously."
   },
   {
-    question: "How does the pricing model work for law firms?",
-    answer:
-      "Firm plans offer scalable pricing based on active attorneys and paralegals, with volume discounts for larger practices. Enterprise plans include dedicated legal success managers, custom legal model training, and advanced matter analytics. All plans come with a 30-day money-back guarantee.",
+    question: "Can I use NeuroBot for team collaboration?",
+    answer: "Yes, our enterprise plan includes team features like shared workspaces and collaborative editing."
   },
   {
-    question: "Can I train LegalAssist on my firm's precedents and templates?",
-    answer:
-      "Yes, our Enterprise plan includes custom model training where you can upload previous case documents, standard templates, and firm-specific protocols. The AI will learn your firm's preferred legal approach, terminology, and formatting requirements within 2-3 weeks of training.",
-  },
-  {
-    question: "How does LegalAssist handle confidentiality and attorney-client privilege?",
-    answer:
-      "LegalAssist was built with legal ethics at its core. Our system maintains strict data segregation, preserving attorney-client privilege. All data processing occurs in SOC 2 Type II certified environments, and we provide comprehensive audit logs for compliance verification. Our terms of service explicitly preserve privilege and confidentiality protections.",
-  },
+    question: "Does NeuroBot support multiple languages?",
+    answer: "Currently we support English, Spanish, French, and German, with more languages coming soon."
+  }
 ];
 
 const FAQ = ({ id = "faq" }) => {
@@ -49,23 +37,13 @@ const FAQ = ({ id = "faq" }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-
-      const hasDarkClass =
-        document.documentElement.classList.contains("dark") ||
-        document.body.classList.contains("dark");
-
-      setIsDarkMode(prefersDark || hasDarkClass);
-
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handleChange = (e) => setIsDarkMode(e.matches);
-      mediaQuery.addEventListener("change", handleChange);
-
-      return () => mediaQuery.removeEventListener("change", handleChange);
-    }
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+    
+    const handler = (e) => setIsDarkMode(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    
+    return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
   const toggleFAQ = (index) => {
@@ -88,7 +66,7 @@ const FAQ = ({ id = "faq" }) => {
           },
         },
       }}
-      className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
+      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
     >
       <motion.div
         variants={{
@@ -103,15 +81,15 @@ const FAQ = ({ id = "faq" }) => {
             },
           },
         }}
-        className="text-center mb-12"
+        className="text-center mb-8 md:mb-12"
       >
-        <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Frequently Asked Questions</h2>
+        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Get answers about NeuroBot's advanced capabilities
         </p>
       </motion.div>
 
-      <div className="max-w-4xl mx-auto space-y-4">
+      <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}
@@ -132,15 +110,15 @@ const FAQ = ({ id = "faq" }) => {
                   ? "rgba(16, 185, 129, 0.1)"
                   : "rgba(16, 185, 129, 0.05)",
               }}
-              className="p-5 w-full text-left flex justify-between items-center"
+              className="p-4 md:p-5 w-full text-left flex justify-between items-center"
               onClick={() => toggleFAQ(index)}
               aria-expanded={activeIndex === index}
               aria-controls={`faq-answer-${index}`}
             >
-              <h3 className="font-medium text-lg">{faq.question}</h3>
+              <h3 className="font-medium text-sm md:text-base lg:text-lg">{faq.question}</h3>
               <motion.span
                 animate={{ rotate: activeIndex === index ? 45 : 0 }}
-                className="text-emerald-500 text-2xl font-light ml-4"
+                className="text-emerald-500 text-xl md:text-2xl font-light ml-2 md:ml-4"
               >
                 +
               </motion.span>
@@ -155,16 +133,16 @@ const FAQ = ({ id = "faq" }) => {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 pb-5 text-gray-600 dark:text-gray-300 mt-2">
+                  <div className="px-4 md:px-5 pb-4 md:pb-5 text-xs md:text-sm lg:text-base text-gray-600 dark:text-gray-300">
                     {faq.answer}
                     {index === 2 && (
-                      <div className="mt-3 text-sm text-emerald-600 dark:text-emerald-400">
+                      <div className="mt-2 md:mt-3 text-xs md:text-sm text-emerald-600 dark:text-emerald-400">
                         Try our "Academic Mode" in the settings for specialized
                         assistance.
                       </div>
                     )}
                     {index === 6 && (
-                      <div className="mt-3 text-sm text-emerald-600 dark:text-emerald-400">
+                      <div className="mt-2 md:mt-3 text-xs md:text-sm text-emerald-600 dark:text-emerald-400">
                         Contact sales for a custom demo of this feature.
                       </div>
                     )}
@@ -181,12 +159,12 @@ const FAQ = ({ id = "faq" }) => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5 }}
-        className="text-center mt-12"
+        className="text-center mt-8 md:mt-12"
       >
-        <p className="text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4">
           Still have questions?
         </p>
-        <button className="px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors">
+        <button className="px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors">
           Contact Support
         </button>
       </motion.div>

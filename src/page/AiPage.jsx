@@ -1,68 +1,119 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ResponseSection from "../components/chatPage/responseSection";
 import InputSection from "../components/chatPage/inputSection";
 import { chatHistoryData } from '../data/chatHistoryData';
+import { Resizable } from 're-resizable';
 
 const AiPage = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [inputWidth, setInputWidth] = useState(500);
+  const responseSectionRef = useRef(null);
+  const scrollPositionRef = useRef(0);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    if (responseSectionRef.current) {
+      scrollPositionRef.current = responseSectionRef.current.scrollTop;
+    }
+  }, [messages, isLoading]);
+
+  useEffect(() => {
+    if (responseSectionRef.current) {
+      responseSectionRef.current.scrollTop = scrollPositionRef.current;
+    }
+  });
+
   const handleSendMessage = (text, imageData = null) => {
-    // First create a new message from the user
     const newUserMessage = { text, image: imageData, isUser: true };
     const updatedMessages = [...messages, newUserMessage];
     setMessages(updatedMessages);
     setIsLoading(true);
-    
-    // Simulate AI response
+
     setTimeout(() => {
       const aiResponse = {
-        text: imageData 
+        text: imageData
           ? `I received your image "${imageData.name}" with your message: "${text}"`
-          : `Here's a response to your query about ${text}. This is a simulated response from the AI assistant.`, 
-        isUser: false 
+          : `Here's a response to your query about ${text}. This is a simulated response from the AI assistant.`,
+        isUser: false
       };
-      
+
       const finalMessages = [...updatedMessages, aiResponse];
       setMessages(finalMessages);
       setIsLoading(false);
-      
-      // Create a new chat history entry after the first exchange
+
       if (messages.length === 0) {
-        // Generate a title from the first user message
         const title = text.length > 30 ? `${text.substring(0, 30)}...` : text;
-        
-        // Create a new chat history entry
-        const newChatId = chatHistoryData.length > 0 
-          ? Math.max(...chatHistoryData.map(chat => chat.id)) + 1 
+        const newChatId = chatHistoryData.length > 0
+          ? Math.max(...chatHistoryData.map(chat => chat.id)) + 1
           : 1;
-          
+
         const newChat = {
           id: newChatId,
-          title: title,
+          title,
           category: "today",
           messages: finalMessages
         };
-        
-        // Add to history (in a real app, this would be saved to a backend)
+
         chatHistoryData.unshift(newChat);
-        
-        // Navigate to the new chat
         navigate(`/chat/${newChatId}`);
       }
     }, 1500);
   };
 
-  return (
-    <div className="h-full flex flex-col lg:flex-row bg-light-sidebar dark:bg-dark-header transition-colors duration-200">
-      <div className="w-full lg:w-1/2 flex-1 order-1 lg:order-2">
-        <ResponseSection messages={messages} isLoading={isLoading} />
+  if (isMobile) {
+    return (
+      <div className="flex flex-col h-[90vh]">
+        <div className="p-1 border-b border-gray-200 dark:border-gray-700">
+          <h1 className="text-sm font-medium text-center truncate px-2">New Chat</h1>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          <ResponseSection messages={messages} isLoading={isLoading} />
+        </div>
+        <div className="p-1 border-t border-gray-200 dark:border-gray-700">
+          <InputSection onSendMessage={handleSendMessage} />
+        </div>
       </div>
-      
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center border-t lg:border-t-0 lg:border-r border-gray-300 dark:border-gray-700 p-4 order-2 lg:order-1">
-        <InputSection onSendMessage={handleSendMessage} />
+    );
+  }
+
+  return (
+    <div className="h-full flex bg-light-sidebar dark:bg-dark-header transition-colors duration-200">
+      <Resizable
+        size={{ width: inputWidth, height: '90vh' }}
+        minWidth={300}
+        maxWidth={800}
+        enable={{ right: true }}
+        onResizeStop={(e, direction, ref, d) => {
+          setInputWidth(inputWidth + d.width);
+        }}
+        className="flex flex-col border-r border-gray-300 dark:border-gray-700"
+      >
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl mx-auto">
+            <InputSection onSendMessage={handleSendMessage} />
+          </div>
+        </div>
+      </Resizable>
+
+      <div className="flex flex-col flex-grow" ref={responseSectionRef}>
+        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-light-sidebar dark:bg-dark-header z-10">
+          <h1 className="text-lg font-medium text-gray-800 dark:text-gray-200">New Chat</h1>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          <ResponseSection messages={messages} isLoading={isLoading} />
+        </div>
       </div>
     </div>
   );

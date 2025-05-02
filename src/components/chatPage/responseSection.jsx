@@ -5,6 +5,18 @@ const ResponseSection = ({ messages, isLoading }) => {
   const messagesEndRef = useRef(null);
   const [feedback, setFeedback] = useState({});
   const [copiedStates, setCopiedStates] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,29 +50,29 @@ const ResponseSection = ({ messages, isLoading }) => {
   };
 
   return (
-<div className="w-full h-full p-4 lg:p-6 overflow-y-auto no-scrollbar text-sm">
-{messages.length === 0 ? (
+    <div className="w-full h-full p-3 sm:p-4 lg:p-6 overflow-y-auto no-scrollbar text-xs sm:text-sm">
+      {messages.length === 0 ? (
         <div className="h-full flex flex-col items-center justify-center">
-          <div className="text-gray-600 dark:text-gray-400 text-center text-sm">
+          <div className="text-gray-600 dark:text-gray-400 text-center text-xs sm:text-sm">
             Your responses will appear here
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4 max-w-full">
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`p-3 rounded-lg ${
+              className={`p-2 sm:p-3 rounded-lg max-w-full ${
                 message.isUser
                   ? "bg-blue-100 dark:bg-gray-800"
                   : "bg-gray-100 dark:bg-gray-700"
               }`}
             >
-              <div className="flex items-start">
-                <div className="w-7 h-7 rounded-full flex items-center justify-center mr-3 overflow-hidden">
+              <div className="flex items-start max-w-full">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center mr-2 sm:mr-3 overflow-hidden flex-shrink-0">
                   {message.isUser ? (
                     <div className="w-full h-full bg-blue-500 flex items-center justify-center">
-                      <span className="text-white text-xs font-medium">Y</span>
+                      <span className="text-white text-[10px] sm:text-xs font-medium">Y</span>
                     </div>
                   ) : (
                     <img
@@ -70,13 +82,12 @@ const ResponseSection = ({ messages, isLoading }) => {
                     />
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start mb-1">
-                    <p className="font-medium text-gray-800 dark:text-gray-200 text-sm">
+                <div className="flex-1 min-w-0 overflow-hidden">
+                  <div className="flex justify-between items-start mb-1 max-w-full">
+                    <p className="font-medium text-gray-800 dark:text-gray-200 text-xs sm:text-sm truncate">
                       {message.isUser ? "You" : "NeuroBot"}
                     </p>
-                    <div className="flex space-x-2">
-                      {/* Only show copy button and feedback for AI responses */}
+                    <div className="flex space-x-1 sm:space-x-2 flex-shrink-0">
                       {!message.isUser && (
                         <>
                           <button
@@ -90,9 +101,9 @@ const ResponseSection = ({ messages, isLoading }) => {
                             title="Copy response"
                           >
                             {copiedStates[index] ? (
-                              <FiCheck className="w-4 h-4" />
+                              <FiCheck className="w-3 h-3 sm:w-4 sm:h-4" />
                             ) : (
-                              <FiCopy className="w-4 h-4" />
+                              <FiCopy className="w-3 h-3 sm:w-4 sm:h-4" />
                             )}
                           </button>
 
@@ -106,7 +117,7 @@ const ResponseSection = ({ messages, isLoading }) => {
                             aria-label="Like this response"
                             title="Like"
                           >
-                            <FiThumbsUp className="w-4 h-4" />
+                            <FiThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
 
                           <button
@@ -119,7 +130,7 @@ const ResponseSection = ({ messages, isLoading }) => {
                             aria-label="Dislike this response"
                             title="Dislike"
                           >
-                            <FiThumbsDown className="w-4 h-4" />
+                            <FiThumbsDown className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
                         </>
                       )}
@@ -127,21 +138,21 @@ const ResponseSection = ({ messages, isLoading }) => {
                   </div>
 
                   {message.image && (
-                    <div className="mt-2 mb-3">
-                      <div className="rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 inline-block">
+                    <div className="mt-1 sm:mt-2 mb-2 sm:mb-3 max-w-full">
+                      <div className="rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 inline-block max-w-full">
                         <img
                           src={message.image.url}
                           alt={message.image.name || "Uploaded image"}
-                          className="max-w-[60px] max-h-[45px] object-contain"
+                          className="max-w-[50px] sm:max-w-[60px] max-h-[40px] sm:max-h-[45px] object-contain"
                         />
                       </div>
-                      <p className="text-xs text-gray-500 mt-1 truncate">
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1 truncate max-w-full">
                         {message.image.name}
                       </p>
                     </div>
                   )}
 
-                  <p className="mt-1 text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap text-sm">
+                  <p className="mt-1 text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap text-xs sm:text-sm max-w-full">
                     {message.text}
                   </p>
                 </div>
@@ -150,30 +161,30 @@ const ResponseSection = ({ messages, isLoading }) => {
           ))}
 
           {isLoading && (
-            <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-              <div className="flex items-start">
-                <div className="w-7 h-7 rounded-full flex items-center justify-center mr-3 overflow-hidden">
+            <div className="p-2 sm:p-3 rounded-lg bg-gray-50 dark:bg-gray-700 max-w-full">
+              <div className="flex items-start max-w-full">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center mr-2 sm:mr-3 overflow-hidden flex-shrink-0">
                   <img
                     src="/ai-avatar.avif"
                     alt="AI Assistant"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-800 dark:text-gray-200 mb-1 text-sm">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-gray-800 dark:text-gray-200 mb-1 text-xs sm:text-sm truncate">
                     NeuroBot
                   </p>
-                  <div className="mt-2 flex space-x-2">
+                  <div className="mt-1 sm:mt-2 flex space-x-1 sm:space-x-2">
                     <div
-                      className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
+                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
                       style={{ animationDelay: "0ms" }}
                     ></div>
                     <div
-                      className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
+                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
                       style={{ animationDelay: "150ms" }}
                     ></div>
                     <div
-                      className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
+                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce"
                       style={{ animationDelay: "300ms" }}
                     ></div>
                   </div>

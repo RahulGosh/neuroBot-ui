@@ -76,11 +76,11 @@ const Testimonials = () => {
 
   return (
     <motion.section 
-      className="py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
     >
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      <div className="text-center mb-8 md:mb-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">What Our Users Say</h2>
+        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Trusted by thousands of users worldwide
         </p>
       </div>
@@ -96,22 +96,22 @@ const Testimonials = () => {
             {testimonials.map((testimonial) => (
               <motion.div 
                 key={`first-${testimonial.id}`}
-                className="flex-shrink-0 w-80 mx-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+                className="flex-shrink-0 w-72 md:w-80 mx-3 md:mx-4 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-3 md:mb-4">
                   <motion.img 
                     src={testimonial.avatar} 
                     alt={testimonial.name} 
-                    className="w-12 h-12 rounded-full mr-4"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full mr-3 md:mr-4"
                     whileHover={{ rotate: 5, scale: 1.1 }}
                   />
                   <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                    <h4 className="text-sm md:text-base font-semibold">{testimonial.name}</h4>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
                   "{testimonial.content}"
                 </p>
               </motion.div>
@@ -121,22 +121,22 @@ const Testimonials = () => {
             {testimonials.map((testimonial) => (
               <motion.div 
                 key={`second-${testimonial.id}`}
-                className="flex-shrink-0 w-80 mx-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+                className="flex-shrink-0 w-72 md:w-80 mx-3 md:mx-4 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-3 md:mb-4">
                   <motion.img 
                     src={testimonial.avatar} 
                     alt={testimonial.name} 
-                    className="w-12 h-12 rounded-full mr-4"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full mr-3 md:mr-4"
                     whileHover={{ rotate: 5, scale: 1.1 }}
                   />
                   <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                    <h4 className="text-sm md:text-base font-semibold">{testimonial.name}</h4>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
                   "{testimonial.content}"
                 </p>
               </motion.div>
@@ -145,8 +145,8 @@ const Testimonials = () => {
         </div>
         
         {/* Gradient overlays for smooth edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
       </div>
     </motion.section>
   );

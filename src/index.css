@@ -97,3 +97,46 @@ body {
 .sidebar-overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+@supports (-webkit-touch-callout: none) {
+  input, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Ensure proper scrolling behavior */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Add bottom padding to account for fixed input */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Ensure input stays above keyboard */
+  .sticky {
+    position: sticky;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: inherit;
+  }
+}
+
+.col-resize-cursor {
+  cursor: col-resize !important;
+}
+
+.col-resize-cursor * {
+  cursor: col-resize !important;
+  pointer-events: none !important;
+}
+
+.resizer {
+  will-change: transform;
+}

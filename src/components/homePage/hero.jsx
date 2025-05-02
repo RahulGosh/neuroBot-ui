@@ -33,13 +33,13 @@ const Hero = ({ id }) => {
         }}
         className="md:w-1/2 mb-8 md:mb-0"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Transform Your Legal Practice with{" "}
-        <span className="text-emerald-500">AI</span>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          Transform Your Legal Practice with{" "}
+          <span className="text-emerald-500">AI</span>
         </h1>
-        <p className="text-lg mb-8 text-gray-600 dark:text-gray-300">
-        LexTech Pro empowers legal professionals with cutting-edge tools for document analysis, 
-        case research, and contract automation - all in one secure platform.
+        <p className="text-base md:text-lg mb-8 text-gray-600 dark:text-gray-300">
+          LexTech Pro empowers legal professionals with cutting-edge tools for document analysis, 
+          case research, and contract automation - all in one secure platform.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <Link
@@ -203,7 +203,7 @@ const Hero = ({ id }) => {
                 <div className="mr-3 p-2 bg-emerald-100 dark:bg-emerald-800 rounded-full">
                   <FiZap className="text-emerald-500" />
                 </div>
-                <span>Instant AI-powered responses</span>
+                <span className="text-sm md:text-base">Instant AI-powered responses</span>
               </motion.div>
 
               <motion.div
@@ -215,7 +215,7 @@ const Hero = ({ id }) => {
                 <div className="mr-3 p-2 bg-blue-100 dark:bg-blue-800 rounded-full">
                 <FiFileText className="text-blue-600" />
                 </div>
-                <span>Automated document analysis</span>
+                <span className="text-sm md:text-base">Automated document analysis</span>
               </motion.div>
 
               <motion.div
@@ -227,8 +227,7 @@ const Hero = ({ id }) => {
                 <div className="mr-3 p-2 bg-purple-100 dark:bg-purple-800 rounded-full">
                 <FiSearch className="text-indigo-600" />
                 </div>
-                <span>Intelligent case research</span>
-
+                <span className="text-sm md:text-base">Intelligent case research</span>
               </motion.div>
             </div>
           </motion.div>

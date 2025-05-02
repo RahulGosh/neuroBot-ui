@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      cursor: {
+        'col-resize': 'col-resize',
+      },
       spacing: {
         'chat': 'calc(100vh - 8rem)',
       },

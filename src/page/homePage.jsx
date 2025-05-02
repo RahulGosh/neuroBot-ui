@@ -52,7 +52,7 @@ const HomePage = () => {
     }
   }, [location]);
 
-  useEffect(() => {
+useEffect(() => {
     if (user) {
       console.log("User is logged in:", user.name);
     }

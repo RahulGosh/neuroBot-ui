@@ -7,7 +7,7 @@ import { useAuth } from "./authContext";
 
 const LoginPage = () => {
   const { darkMode } = useTheme();
-  const { login } = useAuth(); // Get login function from auth context
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +27,7 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const result = await login(email, password); // Use the login function from auth context
+      const result = await login(email, password);
       if (result.success) {
         navigate("/");
       } else {
@@ -41,7 +41,6 @@ const LoginPage = () => {
     }
   };
 
-  // Rest of your component remains the same...
   return (
     <div className={`flex flex-col min-h-screen ${
       darkMode
@@ -49,32 +48,32 @@ const LoginPage = () => {
         : "bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100"
     } transition-colors duration-300`}>
       <AuthHeader />
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className={`w-full max-w-5xl ${
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6">
+        <div className={`w-full max-w-4xl ${
           darkMode ? "bg-gray-800/80" : "bg-white/90"
         } backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transition-all duration-300`}>
           <div className="flex flex-col md:flex-row">
-            {/* Left Panel with Background Image */}
-            <div className="md:w-1/2 relative">
+            {/* Left Panel with Background Image - Larger on mobile */}
+            <div className="w-full h-64 sm:h-72 md:h-auto md:w-1/2 relative">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/70 to-teal-900/40 z-10"></div>
               <img
                 src="/ai1.jpg"
                 alt="Legal AI Assistant"
-                className="h-64 md:h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center"
               />
             </div>
 
-            {/* Right Panel with Form */}
-            <div className={`md:w-1/2 p-6 md:p-8 flex flex-col justify-center ${
+            {/* Right Panel with Form - Smaller text on mobile */}
+            <div className={`w-full md:w-1/2 p-5 sm:p-8 md:p-10 flex flex-col justify-center ${
               darkMode ? "text-white" : "text-gray-800"
             }`}>
-              <div className="mb-4 md:mb-6">
-                <h2 className={`text-xl md:text-2xl font-bold mb-1 md:mb-2 ${
+              <div className="mb-5 sm:mb-6">
+                <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 ${
                   darkMode ? "text-white" : "text-gray-900"
                 }`}>
                   Welcome Back
                 </h2>
-                <p className={`text-xs md:text-sm ${
+                <p className={`text-sm sm:text-base ${
                   darkMode ? "text-gray-300" : "text-gray-500"
                 }`}>
                   Don't have an account?{" "}
@@ -84,7 +83,7 @@ const LoginPage = () => {
                       darkMode
                         ? "text-emerald-400 hover:text-emerald-300"
                         : "text-emerald-600 hover:text-emerald-700"
-                    } hover:underline`}
+                    } hover:underline font-medium`}
                   >
                     Sign up
                   </Link>
@@ -92,17 +91,17 @@ const LoginPage = () => {
               </div>
 
               {error && (
-                <div className={`mb-4 md:mb-6 p-2 md:p-3 text-xs md:text-sm rounded-lg ${
+                <div className={`mb-5 sm:mb-6 p-3 text-sm sm:text-base rounded-lg ${
                   darkMode ? "bg-red-900/50 text-red-200" : "bg-red-100 text-red-700"
                 }`}>
                   {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none">
-                    <FiMail className={`h-4 md:h-5 w-4 md:w-5 ${
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FiMail className={`h-4 sm:h-5 w-4 sm:w-5 ${
                       darkMode ? "text-gray-400" : "text-gray-500"
                     }`} />
                   </div>
@@ -110,7 +109,7 @@ const LoginPage = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 md:pl-12 pr-3 md:pr-4 py-2 md:py-3 text-xs md:text-sm rounded-lg border ${
+                    className={`w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                       darkMode
                         ? "border-gray-600 bg-gray-700/70 text-white"
                         : "border-gray-300 bg-white text-gray-800"
@@ -121,8 +120,8 @@ const LoginPage = () => {
                 </div>
 
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none">
-                    <FiLock className={`h-4 md:h-5 w-4 md:w-5 ${
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FiLock className={`h-4 sm:h-5 w-4 sm:w-5 ${
                       darkMode ? "text-gray-400" : "text-gray-500"
                     }`} />
                   </div>
@@ -130,7 +129,7 @@ const LoginPage = () => {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-10 md:pl-12 pr-10 md:pr-12 py-2 md:py-3 text-xs md:text-sm rounded-lg border ${
+                    className={`w-full pl-10 pr-10 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                       darkMode
                         ? "border-gray-600 bg-gray-700/70 text-white"
                         : "border-gray-300 bg-white text-gray-800"
@@ -141,7 +140,7 @@ const LoginPage = () => {
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    className={`absolute right-0 top-0 pr-3 md:pr-4 flex items-center h-full ${
+                    className={`absolute right-0 top-0 pr-3 flex items-center h-full ${
                       darkMode
                         ? "text-gray-400 hover:text-gray-300"
                         : "text-gray-500 hover:text-gray-600"
@@ -151,19 +150,19 @@ const LoginPage = () => {
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between pt-1 md:pt-2">
+                <div className="flex items-center justify-between pt-1">
                   <div className="flex items-center">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className={`h-3 md:h-4 w-3 md:w-4 rounded ${
+                      className={`h-4 sm:h-5 w-4 sm:w-5 rounded ${
                         darkMode
                           ? "bg-gray-700 border-gray-600"
                           : "bg-white border-gray-300"
                       } text-emerald-600 focus:ring-emerald-500`}
                     />
-                    <label className={`ml-2 text-xs md:text-sm ${
+                    <label className={`ml-2 sm:ml-3 text-sm sm:text-base ${
                       darkMode ? "text-gray-300" : "text-gray-600"
                     }`}>
                       Remember me
@@ -171,11 +170,11 @@ const LoginPage = () => {
                   </div>
                   <Link
                     to="/forgot-password"
-                    className={`text-xs md:text-sm ${
+                    className={`text-sm sm:text-base ${
                       darkMode
                         ? "text-emerald-400 hover:text-emerald-300"
                         : "text-emerald-600 hover:text-emerald-700"
-                    } hover:underline`}
+                    } hover:underline font-medium`}
                   >
                     Forgot password?
                   </Link>
@@ -184,12 +183,12 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-4 md:mt-6 py-2 md:py-3 px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm md:text-base font-medium rounded-lg shadow transition duration-200 flex items-center justify-center"
+                  className="w-full mt-5 sm:mt-6 py-2 sm:py-3 px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm sm:text-base font-medium rounded-lg shadow transition duration-200 flex items-center justify-center"
                 >
                   {loading ? (
                     <>
                       <svg
-                        className="animate-spin -ml-1 mr-2 h-4 md:h-5 w-4 md:w-5 text-white"
+                        className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

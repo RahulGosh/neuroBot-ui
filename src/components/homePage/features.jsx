@@ -1,42 +1,59 @@
 import { motion } from 'framer-motion';
+import { 
+  FaFileContract,         // Document Analysis (blue)
+  FaSearch,               // Case Research (purple)
+  FaFileSignature,        // Contract Automation (green)
+  FaCheckDouble,          // Compliance Check (teal)
+  FaBalanceScale,         // Legal Drafting (amber)
+  FaUserFriends           // Client Intake (pink)
+} from 'react-icons/fa';
+import { 
+  GiArchiveResearch       // Alternative Research icon (indigo)
+} from 'react-icons/gi';
 
 const features = [
   {
     title: "Document Analysis",
     description: "Automatically review and analyze legal documents for key clauses and risks.",
-    icon: "📄"
+    icon: <FaFileContract className="w-6 h-6 text-blue-500" />,
+    color: "text-blue-500"
   },
   {
     title: "Case Research",
     description: "Quickly find relevant case law and precedents with AI-powered search.",
-    icon: "🔍"
+    icon: <GiArchiveResearch className="w-6 h-6 text-indigo-500" />,
+    color: "text-indigo-500"
   },
   {
     title: "Contract Automation",
     description: "Generate and customize legal contracts with smart templates.",
-    icon: "✍️"
+    icon: <FaFileSignature className="w-6 h-6 text-emerald-500" />,
+    color: "text-emerald-500"
   },
   {
     title: "Compliance Check",
     description: "Ensure documents meet current regulatory requirements automatically.",
-    icon: "✅"
+    icon: <FaCheckDouble className="w-6 h-6 text-teal-500" />,
+    color: "text-teal-500"
   },
   {
     title: "Legal Drafting",
     description: "Create precise legal documents with AI-assisted drafting tools.",
-    icon: "⚖️"
+    icon: <FaBalanceScale className="w-6 h-6 text-amber-500" />,
+    color: "text-amber-500"
   },
   {
     title: "Client Intake",
     description: "Streamline client onboarding with automated forms and analysis.",
-    icon: "👥"
+    icon: <FaUserFriends className="w-6 h-6 text-pink-500" />,
+    color: "text-pink-500"
   },
 ];
 
 const Features = ({id}) => {
   return (
     <motion.section 
-    id={id}
+      id={id}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
@@ -50,7 +67,7 @@ const Features = ({id}) => {
           }
         }
       }}
-      className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
+      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
     >
       <motion.div 
         variants={{
@@ -65,15 +82,15 @@ const Features = ({id}) => {
             }
           }
         }} 
-        className="text-center mb-12"
+        className="text-center mb-8 md:mb-12"
       >
-        <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-4">Powerful Features</h2>
+        <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           NeuroBot offers a comprehensive suite of tools to enhance your writing experience
         </p>
       </motion.div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
         {features.map((feature, index) => (
           <FeatureCard key={index} feature={feature} index={index} />
         ))}
@@ -98,11 +115,11 @@ const FeatureCard = ({ feature, index }) => {
         }
       }}
       whileHover={{ y: -5 }}
-      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+      className="bg-white dark:bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
     >
-      <div className="text-3xl mb-4">{feature.icon}</div>
-      <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-      <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
+      <div className="text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4">{feature.icon}</div>
+      <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2">{feature.title}</h3>
+      <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300">{feature.description}</p>
     </motion.div>
   );
 };
