@@ -31,7 +31,7 @@ const HowItWorks = () => {
           transition: { staggerChildren: 0.1, when: "beforeChildren" }
         }
       }}
-      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
+      className="py-10 md:py-14 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
     >
       <motion.div
         variants={{
@@ -42,15 +42,15 @@ const HowItWorks = () => {
             transition: { type: "spring", stiffness: 100, damping: 10 }
           }
         }}
-        className="text-center mb-8 md:mb-12"
+        className="text-center mb-6 md:mb-10"
       >
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-4">How LegalAssist Works</h2>
-        <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 md:mb-3">How LegalAssist Works</h2>
+        <p className="text-xs text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Transform your legal workflow in just a few simple steps
         </p>
       </motion.div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
         {steps.map((step, index) => (
           <motion.div
             key={index}
@@ -68,12 +68,12 @@ const HowItWorks = () => {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-base sm:text-lg font-bold mb-3 sm:mb-4"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-sm sm:text-base font-bold mb-2 sm:mb-3"
             >
               {step.step}
             </motion.div>
-            <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1 sm:mb-2">{step.title}</h3>
-            <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300">{step.description}</p>
+            <h3 className="text-sm sm:text-base md:text-lg font-semibold mb-1">{step.title}</h3>
+            <p className="text-xs text-gray-600 dark:text-gray-300">{step.description}</p>
           </motion.div>
         ))}
       </div>

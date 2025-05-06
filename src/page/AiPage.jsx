@@ -8,15 +8,19 @@ import { Resizable } from 're-resizable';
 const AiPage = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [inputWidth, setInputWidth] = useState(500);
+  const [isMobile, setIsMobile] = useState(false);
   const responseSectionRef = useRef(null);
   const scrollPositionRef = useRef(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setInputWidth(window.innerWidth);
+      }
     };
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
@@ -36,23 +40,20 @@ const AiPage = () => {
   });
 
   const handleSendMessage = (text, imageData = null) => {
-    const newUserMessage = { text, image: imageData, isUser: true };
-    const updatedMessages = [...messages, newUserMessage];
+    const newMessage = { text, image: imageData, isUser: true };
+    const updatedMessages = [...messages, newMessage];
     setMessages(updatedMessages);
     setIsLoading(true);
 
     setTimeout(() => {
       const aiResponse = {
-        text: imageData
-          ? `I received your image "${imageData.name}" with your message: "${text}"`
-          : `Here's a response to your query about ${text}. This is a simulated response from the AI assistant.`,
+        text: `Response to your message: "${text}"`,
         isUser: false
       };
-
-      const finalMessages = [...updatedMessages, aiResponse];
-      setMessages(finalMessages);
+      setMessages([...updatedMessages, aiResponse]);
       setIsLoading(false);
 
+      // Create new chat if it's the first message
       if (messages.length === 0) {
         const title = text.length > 30 ? `${text.substring(0, 30)}...` : text;
         const newChatId = chatHistoryData.length > 0
@@ -63,7 +64,7 @@ const AiPage = () => {
           id: newChatId,
           title,
           category: "today",
-          messages: finalMessages
+          messages: [...updatedMessages, aiResponse]
         };
 
         chatHistoryData.unshift(newChat);
@@ -74,14 +75,27 @@ const AiPage = () => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-[90vh]">
-        <div className="p-1 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-sm font-medium text-center truncate px-2">New Chat</h1>
-        </div>
-        <div className="flex-1 overflow-y-auto">
+      <div className="flex flex-col h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
+        {/* Messages container - takes up remaining space */}
+        <div 
+          ref={responseSectionRef}
+          className="flex-1 overflow-y-auto pb-16 px-2"
+          style={{ 
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+        >
+          <style dangerouslySetInnerHTML={{ __html: `
+            .overflow-y-auto::-webkit-scrollbar {
+              display: none;
+            }
+          `}} />
           <ResponseSection messages={messages} isLoading={isLoading} />
         </div>
-        <div className="p-1 border-t border-gray-200 dark:border-gray-700">
+        
+        {/* Fixed input at bottom */}
+        <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-dark-header border-t border-gray-200 dark:border-gray-700">
           <InputSection onSendMessage={handleSendMessage} />
         </div>
       </div>
@@ -89,16 +103,16 @@ const AiPage = () => {
   }
 
   return (
-    <div className="h-full flex bg-light-sidebar dark:bg-dark-header transition-colors duration-200">
+    <div className="flex h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
       <Resizable
-        size={{ width: inputWidth, height: '90vh' }}
+        size={{ width: inputWidth, height: '100%' }}
         minWidth={300}
         maxWidth={800}
         enable={{ right: true }}
         onResizeStop={(e, direction, ref, d) => {
           setInputWidth(inputWidth + d.width);
         }}
-        className="flex flex-col border-r border-gray-300 dark:border-gray-700"
+        className="flex flex-col border-r border-gray-300 dark:border-gray-700 bg-light-sidebar dark:bg-dark-header"
       >
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full max-w-2xl mx-auto">
@@ -107,11 +121,19 @@ const AiPage = () => {
         </div>
       </Resizable>
 
-      <div className="flex flex-col flex-grow" ref={responseSectionRef}>
-        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-light-sidebar dark:bg-dark-header z-10">
-          <h1 className="text-lg font-medium text-gray-800 dark:text-gray-200">New Chat</h1>
-        </div>
-        <div className="flex-1 overflow-y-auto">
+      <div 
+        className="flex flex-col flex-grow h-full overflow-hidden"
+        ref={responseSectionRef}
+      >
+        <div className="flex-1 overflow-y-auto" style={{ 
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}>
+          <style dangerouslySetInnerHTML={{ __html: `
+            .overflow-y-auto::-webkit-scrollbar {
+              display: none;
+            }
+          `}} />
           <ResponseSection messages={messages} isLoading={isLoading} />
         </div>
       </div>

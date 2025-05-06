@@ -66,7 +66,7 @@ const FAQ = ({ id = "faq" }) => {
           },
         },
       }}
-      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
+      className="py-10 md:py-14 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900"
     >
       <motion.div
         variants={{
@@ -81,15 +81,15 @@ const FAQ = ({ id = "faq" }) => {
             },
           },
         }}
-        className="text-center mb-8 md:mb-12"
+        className="text-center mb-6 md:mb-10"
       >
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Frequently Asked Questions</h2>
-        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-3">Frequently Asked Questions</h2>
+        <p className="text-xs text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Get answers about NeuroBot's advanced capabilities
         </p>
       </motion.div>
 
-      <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
+      <div className="max-w-4xl mx-auto space-y-2 sm:space-y-3">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}
@@ -110,15 +110,15 @@ const FAQ = ({ id = "faq" }) => {
                   ? "rgba(16, 185, 129, 0.1)"
                   : "rgba(16, 185, 129, 0.05)",
               }}
-              className="p-4 md:p-5 w-full text-left flex justify-between items-center"
+              className="p-3 sm:p-4 w-full text-left flex justify-between items-center"
               onClick={() => toggleFAQ(index)}
               aria-expanded={activeIndex === index}
               aria-controls={`faq-answer-${index}`}
             >
-              <h3 className="font-medium text-sm md:text-base lg:text-lg">{faq.question}</h3>
+              <h3 className="font-medium text-xs sm:text-sm">{faq.question}</h3>
               <motion.span
                 animate={{ rotate: activeIndex === index ? 45 : 0 }}
-                className="text-emerald-500 text-xl md:text-2xl font-light ml-2 md:ml-4"
+                className="text-emerald-500 text-lg sm:text-xl font-light ml-2"
               >
                 +
               </motion.span>
@@ -133,16 +133,15 @@ const FAQ = ({ id = "faq" }) => {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 md:px-5 pb-4 md:pb-5 text-xs md:text-sm lg:text-base text-gray-600 dark:text-gray-300">
+                  <div className="px-3 sm:px-4 pb-3 sm:pb-4 text-xs text-gray-600 dark:text-gray-300">
                     {faq.answer}
                     {index === 2 && (
-                      <div className="mt-2 md:mt-3 text-xs md:text-sm text-emerald-600 dark:text-emerald-400">
-                        Try our "Academic Mode" in the settings for specialized
-                        assistance.
+                      <div className="mt-1 sm:mt-2 text-xxs sm:text-xs text-emerald-600 dark:text-emerald-400">
+                        Try our "Academic Mode" in the settings for specialized assistance.
                       </div>
                     )}
                     {index === 6 && (
-                      <div className="mt-2 md:mt-3 text-xs md:text-sm text-emerald-600 dark:text-emerald-400">
+                      <div className="mt-1 sm:mt-2 text-xxs sm:text-xs text-emerald-600 dark:text-emerald-400">
                         Contact sales for a custom demo of this feature.
                       </div>
                     )}
@@ -159,12 +158,12 @@ const FAQ = ({ id = "faq" }) => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5 }}
-        className="text-center mt-8 md:mt-12"
+        className="text-center mt-6 md:mt-10"
       >
-        <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4">
+        <p className="text-xxs sm:text-xs text-gray-500 dark:text-gray-400 mb-2 sm:mb-3">
           Still have questions?
         </p>
-        <button className="px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors">
+        <button className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-xs bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors">
           Contact Support
         </button>
       </motion.div>

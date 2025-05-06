@@ -140,3 +140,212 @@ body {
 .resizer {
   will-change: transform;
 }
+
+.chat-page-container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-page-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+
+.chat-messages-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Mobile specific chat styles */
+@media (max-width: 768px) {
+  .chat-page-container {
+    height: calc(100vh - env(safe-area-inset-bottom));
+  }
+  
+  .chat-messages-container {
+    padding-bottom: 60px; /* Space for fixed input */
+  }
+  
+  .chat-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: inherit;
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 10;
+  }
+}
+
+/* Ensure other pages scroll normally */
+.scroll-container {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+/* Prevent body scrolling when chat page is active */
+body.chat-page-active {
+  overflow: hidden;
+}
+
+/* Add this to your existing index.css */
+
+/* Chat Page specific styles */
+.chat-page-root {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile specific chat styles */
+@media (max-width: 768px) {
+  .mobile-chat-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 60px; /* Space for fixed input */
+  }
+  
+  .mobile-chat-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: inherit;
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 10;
+  }
+}
+
+/* Desktop chat layout */
+.desktop-chat-container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Ensure other pages scroll normally */
+.normal-scroll-container {
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+.text-xxs {
+  font-size: 0.625rem; /* 10px */
+  line-height: 0.75rem; /* 12px */
+}
+
+.no-scrollbar,
+.chat-scroll-container,
+.mobile-chat-messages,
+.desktop-messages-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.chat-scroll-container::-webkit-scrollbar,
+.mobile-chat-messages::-webkit-scrollbar,
+.desktop-messages-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure proper scrolling behavior */
+.chat-scroll-container {
+  overflow-y: scroll;
+}
+
+/* Container setup */
+.mobile-chat-container,
+.desktop-chat-container {
+  overflow: hidden;
+}
+
+/* Mobile specific */
+.mobile-chat-messages {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+
+/* Desktop specific */
+.desktop-messages-container {
+  overflow-y: scroll;
+}
+
+/* Ensure full height for all containers */
+#root, .h-full {
+  height: 100%;
+}
+
+/* Remove gap between flex items */
+.gap-0 {
+  gap: 0;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+/* Ensure form fits on small screens */
+@media (max-width: 767px) {
+  .auth-container {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px); /* Adjust based on your header height */
+    padding-top: 0 !important;
+  }
+  
+  .login-form-wrapper {
+    margin: auto;
+    transform: translateY(0) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
+  .signup-form-container {
+    transform: translateY(0) !important;
+    margin-top: 0 !important;
+  }
+}
+
+@keyframes pulse-once {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+.animate-pulse-once {
+  animation: pulse-once 2s ease-in-out;
+}

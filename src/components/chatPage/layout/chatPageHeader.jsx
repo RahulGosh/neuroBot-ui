@@ -37,12 +37,15 @@ const ChatPageHeader = ({ toggleSidebar, sidebarOpen }) => {
   };
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full px-4 py-[0.8rem] flex justify-between items-center sticky top-0 z-50 bg-light-sidebar dark:bg-dark-header shadow-sm border-b border-gray-200 dark:border-gray-700"
-    >
+<motion.header
+  initial={{ y: -20, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.5 }}
+  className="w-full px-4 py-[0.8rem] flex justify-between items-center fixed top-0 z-50 bg-light-sidebar dark:bg-dark-header shadow-sm border-b border-gray-200 dark:border-gray-700"
+  style={{
+    height: "var(--header-height, 64px)" // Define header height
+  }}
+>
       <div className="flex items-center gap-4">
         {!sidebarOpen && (
           <button

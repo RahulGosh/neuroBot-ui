@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEye, FiEyeOff, FiUser, FiMail, FiLock } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/themeContext";
@@ -16,8 +16,37 @@ const SignUpPage = () => {
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const navigate = useNavigate();
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Disable body scrolling on mobile
+  useEffect(() => {
+    if (isMobile) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.position = "static";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.position = "static";
+    };
+  }, [isMobile]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,18 +79,33 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className={`flex flex-col min-h-screen ${
-      darkMode
-        ? "bg-gradient-to-br from-gray-950 via-gray-900 to-emerald-950/40"
-        : "bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100"
-    } transition-colors duration-300`}>
+    <div
+      className={`flex flex-col ${
+        isMobile ? "fixed inset-0" : "min-h-screen"
+      } ${
+        darkMode
+          ? "bg-gradient-to-br from-gray-950 via-gray-900 to-emerald-950/40"
+          : "bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100"
+      } transition-colors duration-300`}
+    >
       <AuthHeader />
-      <div className="flex-1 flex items-center justify-center p-4">
-        <div className={`w-full max-w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl ${
-          darkMode ? "bg-gray-800/80" : "bg-white/90"
-        } backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transition-all duration-300`}>
+
+      {/* Main container with perfect centering */}
+      <div
+        className={`flex-1 flex items-center justify-center p-4 sm:p-6 ${
+          isMobile ? "h-[calc(100vh-64px)] overflow-y-auto no-scrollbar" : ""
+        }`}
+      >
+        <div
+          className={`w-full max-w-md md:max-w-4xl mx-auto ${
+            darkMode ? "bg-gray-800/80" : "bg-white/90"
+          } backdrop-blur-sm rounded-2xl shadow-2xl transition-all duration-300 ${
+            isMobile ? "my-auto" : ""
+          }`}
+        >
           <div className="flex flex-col md:flex-row">
-            <div className="w-full h-48 md:h-auto md:w-1/2 relative">
+            {/* Left Panel with Background Image - Hidden on mobile */}
+            <div className="hidden md:block md:w-1/2 relative">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/70 to-teal-900/40 z-10"></div>
               <img
                 src="/ai-robot.webp"
@@ -70,26 +114,33 @@ const SignUpPage = () => {
               />
             </div>
 
-            <div className={`w-full md:w-1/2 p-4 md:p-6 flex flex-col justify-center ${
-              darkMode ? "text-white" : "text-gray-800"
-            }`}>
-              <div className="mb-4">
-                <h2 className={`text-xl md:text-3xl font-bold mb-1 ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}>
+            {/* Right Panel with Form */}
+            <div
+              className={`w-full md:w-1/2 p-5 sm:p-8 md:p-10 flex flex-col justify-center ${
+                darkMode ? "text-white" : "text-gray-800"
+              }`}
+            >
+              <div className="mb-5 sm:mb-6">
+                <h2
+                  className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   Create an account
                 </h2>
-                <p className={`text-sm md:text-base ${
-                  darkMode ? "text-gray-300" : "text-gray-500"
-                }`}>
+                <p
+                  className={`text-sm sm:text-base ${
+                    darkMode ? "text-gray-300" : "text-gray-600" // Changed from text-gray-500 to text-gray-600 for better contrast
+                  }`}
+                >
                   Already have an account?{" "}
                   <Link
                     to="/login"
                     className={`${
                       darkMode
-                        ? "text-emerald-400 hover:text-emerald-300"
-                        : "text-emerald-600 hover:text-emerald-700"
-                    } hover:underline`}
+                        ? "text-emerald-300 hover:text-emerald-200 font-semibold" // Brighter color and semibold
+                        : "text-emerald-600 hover:text-emerald-700 font-semibold" // Brighter color and semibold
+                    } hover:underline transition-colors duration-200`}
                   >
                     Log in
                   </Link>
@@ -97,26 +148,32 @@ const SignUpPage = () => {
               </div>
 
               {error && (
-                <div className={`mb-4 p-2 text-sm md:text-base rounded-lg ${
-                  darkMode ? "bg-red-900/50 text-red-200" : "bg-red-100 text-red-700"
-                }`}>
+                <div
+                  className={`mb-4 sm:mb-5 p-3 text-sm sm:text-base rounded-lg ${
+                    darkMode
+                      ? "bg-red-900/50 text-red-200"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
                   {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="flex flex-col sm:flex-row gap-2">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiUser className={`h-4 w-4 ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      }`} />
+                      <FiUser
+                        className={`h-4 sm:h-5 w-4 sm:w-5 ${
+                          darkMode ? "text-gray-400" : "text-gray-500"
+                        }`}
+                      />
                     </div>
                     <input
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className={`w-full pl-9 pr-3 py-2 text-sm md:text-base rounded-lg border ${
+                      className={`w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                         darkMode
                           ? "border-gray-600 bg-gray-700/70 text-white"
                           : "border-gray-300 bg-white text-gray-800"
@@ -128,15 +185,17 @@ const SignUpPage = () => {
 
                   <div className="flex-1 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiUser className={`h-4 w-4 ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      }`} />
+                      <FiUser
+                        className={`h-4 sm:h-5 w-4 sm:w-5 ${
+                          darkMode ? "text-gray-400" : "text-gray-500"
+                        }`}
+                      />
                     </div>
                     <input
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className={`w-full pl-9 pr-3 py-2 text-sm md:text-base rounded-lg border ${
+                      className={`w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                         darkMode
                           ? "border-gray-600 bg-gray-700/70 text-white"
                           : "border-gray-300 bg-white text-gray-800"
@@ -149,15 +208,17 @@ const SignUpPage = () => {
 
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiMail className={`h-4 w-4 ${
-                      darkMode ? "text-gray-400" : "text-gray-500"
-                    }`} />
+                    <FiMail
+                      className={`h-4 sm:h-5 w-4 sm:w-5 ${
+                        darkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    />
                   </div>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-9 pr-3 py-2 text-sm md:text-base rounded-lg border ${
+                    className={`w-full pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                       darkMode
                         ? "border-gray-600 bg-gray-700/70 text-white"
                         : "border-gray-300 bg-white text-gray-800"
@@ -169,15 +230,17 @@ const SignUpPage = () => {
 
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FiLock className={`h-4 w-4 ${
-                      darkMode ? "text-gray-400" : "text-gray-500"
-                    }`} />
+                    <FiLock
+                      className={`h-4 sm:h-5 w-4 sm:w-5 ${
+                        darkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    />
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-9 pr-8 py-2 text-sm md:text-base rounded-lg border ${
+                    className={`w-full pl-10 pr-10 py-2 sm:py-3 text-sm sm:text-base rounded-lg border ${
                       darkMode
                         ? "border-gray-600 bg-gray-700/70 text-white"
                         : "border-gray-300 bg-white text-gray-800"
@@ -194,24 +257,30 @@ const SignUpPage = () => {
                         : "text-gray-500 hover:text-gray-600"
                     }`}
                   >
-                    {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                    {showPassword ? (
+                      <FiEyeOff size={16} />
+                    ) : (
+                      <FiEye size={16} />
+                    )}
                   </button>
                 </div>
 
-                <div className="flex items-start pt-1">
+                <div className="flex items-start pt-1 sm:pt-2">
                   <input
                     type="checkbox"
                     checked={agreeToTerms}
                     onChange={(e) => setAgreeToTerms(e.target.checked)}
-                    className={`h-4 w-4 rounded ${
+                    className={`h-4 sm:h-5 w-4 sm:w-5 rounded ${
                       darkMode
                         ? "bg-gray-700 border-gray-600"
                         : "bg-white border-gray-300"
                     } text-emerald-600 focus:ring-emerald-500`}
                   />
-                  <label className={`ml-2 text-sm md:text-base ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}>
+                  <label
+                    className={`ml-2 sm:ml-3 text-sm sm:text-base ${
+                      darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     I agree to the{" "}
                     <Link
                       to="/terms"
@@ -219,7 +288,7 @@ const SignUpPage = () => {
                         darkMode
                           ? "text-emerald-400 hover:text-emerald-300"
                           : "text-emerald-600 hover:text-emerald-700"
-                      } hover:underline`}
+                      } hover:underline font-medium`}
                     >
                       terms & conditions
                     </Link>
@@ -229,12 +298,12 @@ const SignUpPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-4 py-2 px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm md:text-base font-medium rounded-lg shadow transition duration-200 flex items-center justify-center"
+                  className="w-full mt-4 sm:mt-5 py-3 sm:py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center transform hover:-translate-y-0.5" // Added transform and hover effects
                 >
                   {loading ? (
                     <>
                       <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -253,10 +322,10 @@ const SignUpPage = () => {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      Creating account...
+                      <span className="tracking-wide">Creating account...</span>
                     </>
                   ) : (
-                    "Create Account"
+                    <span className="tracking-wide">Create Account</span>
                   )}
                 </button>
               </form>

@@ -53,14 +53,10 @@ const Testimonials = () => {
   const [duration, setDuration] = useState(30);
 
   useEffect(() => {
-    // Calculate the width of a single set of testimonials
-    const singleSetWidth = testimonials.length * (320 + 32); // card width (w-80) + margin (mx-4)
+    const singleSetWidth = testimonials.length * (288 + 24); // card width (w-72) + margin (mx-3)
     setWidth(singleSetWidth);
-    
-    // Set a reasonable duration based on content amount
     setDuration(testimonials.length * 5);
     
-    // Start the animation
     controls.start({
       x: [`0px`, `-${singleSetWidth}px`],
       transition: {
@@ -76,11 +72,11 @@ const Testimonials = () => {
 
   return (
     <motion.section 
-      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 overflow-hidden"
+      className="py-10 md:py-14 px-4 md:px-8 lg:px-16 overflow-hidden"
     >
-      <div className="text-center mb-8 md:mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">What Our Users Say</h2>
-        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      <div className="text-center mb-6 md:mb-10">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-3">What Our Users Say</h2>
+        <p className="text-xs text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Trusted by thousands of users worldwide
         </p>
       </div>
@@ -90,53 +86,51 @@ const Testimonials = () => {
           <motion.div 
             className="flex"
             animate={controls}
-            style={{ width: width * 2 }} // Double the width to fit both sets
+            style={{ width: width * 2 }}
           >
-            {/* First set of testimonials */}
             {testimonials.map((testimonial) => (
               <motion.div 
                 key={`first-${testimonial.id}`}
-                className="flex-shrink-0 w-72 md:w-80 mx-3 md:mx-4 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm"
+                className="flex-shrink-0 w-64 sm:w-72 mx-2 sm:mx-3 bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="flex items-center mb-3 md:mb-4">
+                <div className="flex items-center mb-2 sm:mb-3">
                   <motion.img 
                     src={testimonial.avatar} 
                     alt={testimonial.name} 
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full mr-3 md:mr-4"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-2 sm:mr-3"
                     whileHover={{ rotate: 5, scale: 1.1 }}
                   />
                   <div>
-                    <h4 className="text-sm md:text-base font-semibold">{testimonial.name}</h4>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                    <h4 className="text-xs sm:text-sm font-semibold">{testimonial.name}</h4>
+                    <p className="text-xxs sm:text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-xs text-gray-600 dark:text-gray-300">
                   "{testimonial.content}"
                 </p>
               </motion.div>
             ))}
             
-            {/* Duplicate set for seamless looping */}
             {testimonials.map((testimonial) => (
               <motion.div 
                 key={`second-${testimonial.id}`}
-                className="flex-shrink-0 w-72 md:w-80 mx-3 md:mx-4 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-sm"
+                className="flex-shrink-0 w-64 sm:w-72 mx-2 sm:mx-3 bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow-sm"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="flex items-center mb-3 md:mb-4">
+                <div className="flex items-center mb-2 sm:mb-3">
                   <motion.img 
                     src={testimonial.avatar} 
                     alt={testimonial.name} 
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-full mr-3 md:mr-4"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-2 sm:mr-3"
                     whileHover={{ rotate: 5, scale: 1.1 }}
                   />
                   <div>
-                    <h4 className="text-sm md:text-base font-semibold">{testimonial.name}</h4>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
+                    <h4 className="text-xs sm:text-sm font-semibold">{testimonial.name}</h4>
+                    <p className="text-xxs sm:text-xs text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
-                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-xs text-gray-600 dark:text-gray-300">
                   "{testimonial.content}"
                 </p>
               </motion.div>
@@ -144,9 +138,8 @@ const Testimonials = () => {
           </motion.div>
         </div>
         
-        {/* Gradient overlays for smooth edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10"></div>
       </div>
     </motion.section>
   );

@@ -59,6 +59,7 @@ useEffect(() => {
   }, [user]);
 
   return (
+    <div className="scroll-container">
     <div className="min-h-screen flex flex-col bg-white dark:bg-dark-header text-light-text dark:text-dark-text">
       <HomePageHeader
         darkMode={darkMode}
@@ -77,6 +78,7 @@ useEffect(() => {
       <Contact id="contact" />
       <CTA />
       <Footer />
+    </div>
     </div>
   );
 };

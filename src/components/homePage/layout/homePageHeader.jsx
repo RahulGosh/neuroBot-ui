@@ -88,9 +88,9 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
       transition={{ duration: 0.5 }}
       className="w-full px-4 py-[0.8rem] flex justify-between items-center sticky top-0 z-50 bg-white dark:bg-dark-header shadow-sm border-b border-gray-200 dark:border-gray-700"
     >
-      {/* Mobile View - Full width with edge-to-edge padding */}
+      {/* Mobile View */}
       <div className="w-full flex justify-between items-center md:hidden">
-        <Link to="/" className="text-xl font-bold">
+        <Link to="/" className="text-lg font-bold"> {/* Reduced from text-xl to text-lg */}
           NeuroBot
         </Link>
         <div className="flex items-center gap-2">
@@ -125,27 +125,27 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                   {user ? (
                     <>
                       <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                        <p className="text-xs font-medium text-gray-800 dark:text-gray-200">
                           {user.name}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xxs text-gray-500 dark:text-gray-400"> {/* Reduced to text-xxs (custom size) */}
                           {user.email}
                         </p>
                       </div>
                       <Link
                         to="/profile"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" 
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        <FiUser className="w-4 h-4" />
+                        <FiUser className="w-3.5 h-3.5" /> {/* Slightly smaller icon */}
                         <span>Profile</span>
                       </Link>
                       {isChatPage && (
                         <button
                           onClick={handleContactUsClick}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                          className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
                         >
-                          <FiMail className="w-4 h-4" />
+                          <FiMail className="w-3.5 h-3.5" />
                           <span>Contact Us</span>
                         </button>
                       )}
@@ -155,12 +155,12 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                             toggleTheme();
                             setIsProfileDropdownOpen(false);
                           }}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                          className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
                         >
                           {darkMode ? (
-                            <FiSun className="w-4 h-4" />
+                            <FiSun className="w-3.5 h-3.5" />
                           ) : (
-                            <FiMoon className="w-4 h-4" />
+                            <FiMoon className="w-3.5 h-3.5" />
                           )}
                           <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
                         </button>
@@ -168,9 +168,9 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                       <div className="border-t border-gray-200 dark:border-gray-700">
                         <button
                           onClick={handleLogout}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                          className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
                         >
-                          <FiLogOut className="w-4 h-4" />
+                          <FiLogOut className="w-3.5 h-3.5" />
                           <span>Logout</span>
                         </button>
                       </div>
@@ -182,37 +182,37 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                           toggleTheme();
                           setIsProfileDropdownOpen(false);
                         }}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                        className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
                       >
                         {darkMode ? (
-                          <FiSun className="w-4 h-4" />
+                          <FiSun className="w-3.5 h-3.5" />
                         ) : (
-                          <FiMoon className="w-4 h-4" />
+                          <FiMoon className="w-3.5 h-3.5" />
                         )}
                         <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
                       </button>
                       <Link
                         to="/login"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        <FiLogIn className="w-4 h-4" />
+                        <FiLogIn className="w-3.5 h-3.5" />
                         <span>Login</span>
                       </Link>
                       <Link
                         to="/sign-up"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        <FiUserPlus className="w-4 h-4" />
+                        <FiUserPlus className="w-3.5 h-3.5" />
                         <span>Sign Up</span>
                       </Link>
                       {isChatPage && (
                         <button
                           onClick={handleContactUsClick}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                          className="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
                         >
-                          <FiMail className="w-4 h-4" />
+                          <FiMail className="w-3.5 h-3.5" />
                           <span>Contact Us</span>
                         </button>
                       )}
@@ -239,7 +239,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
         </div>
       </div>
 
-      {/* Desktop View - Full width with edge-to-edge padding */}
+      {/* Desktop View - Unchanged */}
       <div className="hidden md:flex w-full px-4 items-center justify-between">
         <Link to="/" className="text-xl font-bold">
           NeuroBot
@@ -426,7 +426,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
         </div>
       </div>
 
-      {/* Mobile Menu (Modified to always show as column) */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && !isChatPage && (
           <motion.div
@@ -447,7 +447,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                   {link.path ? (
                     <Link
                       to={link.path}
-                      className="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+                      className="block py-3 px-4 text-xs hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors" 
                       onClick={toggleMobileMenu}
                     >
                       {link.name}
@@ -455,7 +455,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                   ) : (
                     <button
                       onClick={() => handleSectionClick(link.section)}
-                      className="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left w-full"
+                      className="block py-3 px-4 text-xs hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-left w-full" 
                     >
                       {link.name}
                     </button>
@@ -467,7 +467,7 @@ const HomePageHeader = ({ toggleSidebar, sidebarOpen, isMobile }) => {
                 {user && (
                   <>
                     <div className="px-4 py-2">
-                      <p className="text-sm font-medium">
+                      <p className="text-xs font-medium">
                         Logged in as {user.name}
                       </p>
                     </div>

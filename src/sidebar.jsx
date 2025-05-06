@@ -63,10 +63,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <div
-      className={`${
-        isOpen ? "block" : "hidden"
-      } md:block fixed md:static z-40 w-64 h-screen overflow-y-auto custom-scrollbar bg-light-sidebar dark:bg-dark-sidebar border-r border-gray-200 dark:border-gray-700 flex flex-col`}
-    >
+    className={`${
+      isOpen ? "block" : "hidden"
+    } w-full h-full overflow-y-auto custom-scrollbar bg-light-sidebar dark:bg-dark-sidebar border-r border-gray-200 dark:border-gray-700 flex flex-col`}
+  >
       <div className="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700">
         <button
           className="mr-2 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 items-center justify-center transition-colors"

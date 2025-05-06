@@ -46,13 +46,10 @@ const socialIcons = {
 };
 
 const Footer = () => {
-  // Define social media links with proper URLs
   const socialLinks = [
-    { name: 'twitter', url: 'https://twitter.com/neurobot', icon: socialIcons.twitter },
-    { name: 'facebook', url: 'https://facebook.com/neurobot', icon: socialIcons.facebook },
-    { name: 'linkedin', url: 'https://linkedin.com/company/neurobot', icon: socialIcons.linkedin },
-    { name: 'github', url: 'https://github.com/neurobot', icon: socialIcons.github },
-    { name: 'instagram', url: 'https://instagram.com/neurobot', icon: socialIcons.instagram }
+    { name: 'twitter', url: '#', icon: socialIcons.twitter },
+    { name: 'facebook', url: '#', icon: socialIcons.facebook },
+    { name: 'linkedin', url: '#', icon: socialIcons.linkedin }
   ];
 
   return (
@@ -60,27 +57,23 @@ const Footer = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="bg-gray-900 text-gray-300 py-8 md:py-12 px-4 md:px-8 lg:px-16"
+      className="bg-gray-900 text-gray-300 py-8 px-4 md:px-8"
     >
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">NeuroBot</h3>
-          <p className="text-xs md:text-sm mb-3 md:mb-4">AI-powered writing assistant to help you create better content.</p>
-          <div className="flex space-x-3 md:space-x-4">
+          <h3 className="text-base md:text-lg font-bold text-white mb-2">NeuroBot</h3>
+          <p className="text-xs mb-3">AI-powered writing assistant</p>
+          <div className="flex space-x-3">
             {socialLinks.map((social, index) => (
               <motion.a 
                 key={index}
                 href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 whileHover={{ y: -3, color: "#10B981" }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={`Visit NeuroBot on ${social.name}`}
-                className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-800 flex items-center justify-center hover:text-emerald-500 transition-colors"
+                className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center"
               >
                 {social.icon}
               </motion.a>
@@ -94,17 +87,15 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
           >
-            <h4 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">{section.title}</h4>
-            <ul className="space-y-1 md:space-y-2">
+            <h4 className="text-sm font-semibold text-white mb-2">{section.title}</h4>
+            <ul className="space-y-1">
               {section.links.map((link, linkIndex) => (
                 <motion.li 
                   key={linkIndex}
                   whileHover={{ x: 5, color: "#10B981" }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Link to="#" className="text-xs md:text-sm transition-colors">{link}</Link>
+                  <Link to="#" className="text-xs">{link}</Link>
                 </motion.li>
               ))}
             </ul>
@@ -115,8 +106,7 @@ const Footer = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.4 }}
-        className="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 text-center text-xs md:text-sm"
+        className="border-t border-gray-800 mt-6 pt-6 text-center text-xs"
       >
         <p>© {new Date().getFullYear()} NeuroBot. All rights reserved.</p>
       </motion.div>

@@ -19,6 +19,9 @@ const ChatPage = () => {
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setInputWidth(window.innerWidth);
+      }
     };
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
@@ -65,14 +68,30 @@ const ChatPage = () => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-[90vh]">
-        <div className="p-1 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-sm font-medium text-center truncate px-2">{chatTitle}</h1>
-        </div>
-        <div className="flex-1 overflow-y-auto">
+      <div className="flex flex-col h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
+        {/* Header - removed since Layout has its own header */}
+        
+        {/* Messages container - takes up remaining space */}
+        <div 
+          ref={responseSectionRef}
+          className="flex-1 overflow-y-auto pb-16 px-2"
+          style={{ 
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none', // For Firefox
+            msOverflowStyle: 'none' // For IE/Edge
+          }}
+        >
+          {/* Hide scrollbar for Chrome/Safari */}
+          <style dangerouslySetInnerHTML={{ __html: `
+            .overflow-y-auto::-webkit-scrollbar {
+              display: none;
+            }
+          `}} />
           <ResponseSection messages={messages} isLoading={isLoading} />
         </div>
-        <div className="p-1 border-t border-gray-200 dark:border-gray-700">
+        
+        {/* Fixed input at bottom */}
+        <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-dark-header border-t border-gray-200 dark:border-gray-700">
           <InputSection onSendMessage={handleSendMessage} />
         </div>
       </div>
@@ -80,16 +99,16 @@ const ChatPage = () => {
   }
 
   return (
-    <div className="h-full flex bg-light-sidebar dark:bg-dark-header transition-colors duration-200">
+    <div className="flex h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
       <Resizable
-        size={{ width: inputWidth, height: '90vh' }}
+        size={{ width: inputWidth, height: '100%' }}
         minWidth={300}
         maxWidth={800}
         enable={{ right: true }}
         onResizeStop={(e, direction, ref, d) => {
           setInputWidth(inputWidth + d.width);
         }}
-        className="flex flex-col border-r border-gray-300 dark:border-gray-700"
+        className="flex flex-col border-r border-gray-300 dark:border-gray-700 bg-light-sidebar dark:bg-dark-header"
       >
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full max-w-2xl mx-auto">
@@ -98,11 +117,20 @@ const ChatPage = () => {
         </div>
       </Resizable>
 
-      <div className="flex flex-col flex-grow" ref={responseSectionRef}>
-        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-light-sidebar dark:bg-dark-header z-10">
-          <h1 className="text-lg font-medium text-gray-800 dark:text-gray-200">{chatTitle}</h1>
-        </div>
-        <div className="flex-1 overflow-y-auto">
+      <div 
+        className="flex flex-col flex-grow h-full overflow-hidden"
+        ref={responseSectionRef}
+      >
+        <div className="flex-1 overflow-y-auto" style={{ 
+          scrollbarWidth: 'none', // For Firefox
+          msOverflowStyle: 'none' // For IE/Edge
+        }}>
+          {/* Hide scrollbar for Chrome/Safari */}
+          <style dangerouslySetInnerHTML={{ __html: `
+            .overflow-y-auto::-webkit-scrollbar {
+              display: none;
+            }
+          `}} />
           <ResponseSection messages={messages} isLoading={isLoading} />
         </div>
       </div>

@@ -11,11 +11,11 @@ const ResponseSection = ({ messages, isLoading }) => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   const scrollToBottom = () => {
@@ -50,29 +50,34 @@ const ResponseSection = ({ messages, isLoading }) => {
   };
 
   return (
-    <div className="w-full h-full p-3 sm:p-4 lg:p-6 overflow-y-auto no-scrollbar text-xs sm:text-sm">
-      {messages.length === 0 ? (
-        <div className="h-full flex flex-col items-center justify-center">
-          <div className="text-gray-600 dark:text-gray-400 text-center text-xs sm:text-sm">
-            Your responses will appear here
-          </div>
-        </div>
+    <div className="w-full h-full p-3 sm:p-4 lg:p-6 overflow-y-auto">
+  {messages.length === 0 ? (
+    <div className="min-h-[calc(100vh-150px)] flex flex-col items-center justify-center">
+      <div className="text-gray-600 dark:text-gray-400 text-center text-sm sm:text-sm">
+        Your responses will appear here
+      </div>
+    </div>
       ) : (
-        <div className="space-y-3 sm:space-y-4 max-w-full">
+        <div className="space-y-3 sm:space-y-4 w-full">
+          {" "}
+          {/* Added w-full */}
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`p-2 sm:p-3 rounded-lg max-w-full ${
+              className={`p-2 sm:p-3 rounded-lg w-full ${
                 message.isUser
                   ? "bg-blue-100 dark:bg-gray-800"
                   : "bg-gray-100 dark:bg-gray-700"
               }`}
+              style={{ maxWidth: "100%" }} // Ensure messages don't overflow
             >
               <div className="flex items-start max-w-full">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center mr-2 sm:mr-3 overflow-hidden flex-shrink-0">
                   {message.isUser ? (
                     <div className="w-full h-full bg-blue-500 flex items-center justify-center">
-                      <span className="text-white text-[10px] sm:text-xs font-medium">Y</span>
+                      <span className="text-white text-[10px] sm:text-xs font-medium">
+                        Y
+                      </span>
                     </div>
                   ) : (
                     <img
@@ -152,14 +157,19 @@ const ResponseSection = ({ messages, isLoading }) => {
                     </div>
                   )}
 
-                  <p className="mt-1 text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap text-xs sm:text-sm max-w-full">
+                  <p
+                    className="mt-1 text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap text-xs sm:text-sm"
+                    style={{
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                    }}
+                  >
                     {message.text}
                   </p>
                 </div>
               </div>
             </div>
           ))}
-
           {isLoading && (
             <div className="p-2 sm:p-3 rounded-lg bg-gray-50 dark:bg-gray-700 max-w-full">
               <div className="flex items-start max-w-full">

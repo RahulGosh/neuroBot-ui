@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
 import { useTheme, ThemeProvider } from './context/themeContext';
 import Layout from "./components/chatPage/layout/layout";
 import AiPage from "./page/AiPage";
@@ -22,11 +22,9 @@ export default function App() {
     setSidebarOpen(prev => !prev);
   }, []);
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-      // Close sidebar when switching to desktop view
       if (window.innerWidth >= 768) {
         setSidebarOpen(false);
       }
@@ -39,38 +37,41 @@ export default function App() {
 
   return (
     <AuthProvider>
-    <ThemeProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen bg-white dark:bg-dark-header text-light-text dark:text-dark-text overflow-hidden">
-          {/* Show MobileSidebar only on mobile */}
-          {isMobile && (
-            <MobileSidebar 
-              isOpen={sidebarOpen} 
-              toggleSidebar={() => setSidebarOpen(!sidebarOpen)} 
-            />
-          )}
-          
-          
-          <div className="flex-1 overflow-y-auto">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/chat" element={
+      <ThemeProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <div className="normal-scroll-container">
+                <HomePage />
+              </div>
+            } />
+            <Route path="/chat" element={
+              <div className="chat-page-root">
                 <Layout>
                   <AiPage />
                 </Layout>
-              } />
-              <Route path="/chat/:id" element={
+              </div>
+            } />
+            <Route path="/chat/:id" element={
+              <div className="chat-page-root">
                 <Layout>
                   <ChatPage />
                 </Layout>
-              } />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/sign-up" element={<SignUpPage />} />
-            </Routes>
-          </div>
-        </div>
-      </Router>
-    </ThemeProvider>
-  </AuthProvider>
+              </div>
+            } />
+            <Route path="/login" element={
+              <div className="normal-scroll-container">
+                <LoginPage />
+              </div>
+            } />
+            <Route path="/sign-up" element={
+              <div className="normal-scroll-container">
+                <SignUpPage />
+              </div>
+            } />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }

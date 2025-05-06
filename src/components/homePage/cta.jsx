@@ -7,15 +7,13 @@ const CTA = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-emerald-500 text-white text-center"
+      className="py-10 px-4 md:px-8 bg-emerald-500 text-white text-center"
     >
       <motion.h2 
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.2 }}
-        className="text-2xl md:text-3xl font-bold mb-4 md:mb-6"
+        className="text-xl md:text-2xl font-bold mb-3"
       >
         Ready to Transform Your Writing?
       </motion.h2>
@@ -23,8 +21,8 @@ const CTA = () => {
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 max-w-2xl mx-auto"
+        transition={{ delay: 0.1 }}
+        className="text-xs md:text-sm mb-4 max-w-2xl mx-auto"
       >
         Join thousands of users who are already enhancing their writing with NeuroBot
       </motion.p>
@@ -32,14 +30,14 @@ const CTA = () => {
         initial={{ scale: 0.9, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 0.2 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="inline-block"
       >
         <Link 
           to="/sign-up" 
-          className="px-6 py-2 md:px-8 md:py-3 text-sm md:text-base bg-white text-emerald-500 rounded-md font-medium inline-block"
+          className="px-4 py-1.5 md:px-6 md:py-2 text-xs md:text-sm bg-white text-emerald-500 rounded-md font-medium"
         >
           Get Started for Free
         </Link>
