@@ -17,11 +17,11 @@ const InputSection = ({ onSendMessage }) => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Check container width to determine compact view
@@ -114,7 +114,8 @@ const InputSection = ({ onSendMessage }) => {
     setImagePreview(null);
 
     if (textareaRef.current) {
-      textareaRef.current.style.height = (isMobile || isCompactView) ? "40px" : "auto";
+      textareaRef.current.style.height =
+        isMobile || isCompactView ? "40px" : "auto";
     }
   };
 
@@ -152,11 +153,15 @@ const InputSection = ({ onSendMessage }) => {
   const useCompactLayout = isMobile || isCompactView;
 
   return (
-<div 
-  ref={containerRef} 
-  className="w-full h-full flex flex-col justify-center p-2 sm:p-4 space-y-2 sm:space-y-4 overflow-hidden"
->
-      <h1 className={`${useCompactLayout ? "text-sm sm:text-lg" : "text-lg sm:text-xl"} font-bold text-center text-gray-800 dark:text-gray-200`}>
+    <div
+      ref={containerRef}
+      className="w-full h-full flex flex-col justify-center p-2 sm:p-4 space-y-2 sm:space-y-4 overflow-hidden"
+    >
+      <h1
+        className={`${
+          useCompactLayout ? "text-sm sm:text-lg" : "text-lg sm:text-xl"
+        } font-bold text-center text-gray-800 dark:text-gray-200`}
+      >
         What can we help you with?
       </h1>
 
@@ -191,48 +196,49 @@ const InputSection = ({ onSendMessage }) => {
         )}
 
         <div className="flex">
-        <textarea
-  ref={textareaRef}
-  value={input}
-  onChange={(e) => setInput(e.target.value)}
-  className={`w-full py-1 sm:py-3 px-2 sm:px-4 text-[16px] sm:text-base text-gray-800 dark:text-gray-200 bg-transparent focus:outline-none resize-none overflow-hidden ${
-    useCompactLayout ? "min-h-10" : ""
-  }`}
-  placeholder="Type your message..."
-  rows="1"
-  style={{
-    minHeight: useCompactLayout ? "48px" : "24px", // Increased from 40px to 48px
-    maxHeight: "150px",
-    fontSize: "16px"
-  }}
-/>
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className={`w-full py-1 sm:py-3 px-2 sm:px-4 text-[16px] sm:text-base text-gray-800 dark:text-gray-200 bg-transparent focus:outline-none resize-none overflow-hidden ${
+              useCompactLayout ? "min-h-10" : ""
+            }`}
+            placeholder="Type your message..."
+            rows="1"
+            style={{
+              minHeight: useCompactLayout ? "48px" : "24px", // Increased from 40px to 48px
+              maxHeight: "150px",
+              fontSize: "16px",
+            }}
+          />
 
-          <div className="flex items-start p-1 sm:p-2">
-            <button
-              className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-              onClick={handleAttachClick}
-            >
-              <FiPaperclip className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
+<div className={`flex items-start ${useCompactLayout ? "p-2" : "p-1 sm:p-2"}`}>
+  <button
+    className={`${useCompactLayout ? "p-2" : "p-1"} text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300`}
+    onClick={handleAttachClick}
+  >
+    <FiPaperclip className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
+  </button>
 
-            <button
-              onClick={handleSend}
-              disabled={!input.trim() && !imagePreview}
-              className={`p-1 ${
-                input.trim() || imagePreview
-                  ? "text-blue-500 hover:text-blue-600"
-                  : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-              }`}
-            >
-              <FiSend className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
-          </div>
+  <button
+    onClick={handleSend}
+    disabled={!input.trim() && !imagePreview}
+    className={`${useCompactLayout ? "p-2" : "p-1"} ${
+      input.trim() || imagePreview
+        ? "text-blue-500 hover:text-blue-600"
+        : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+    }`}
+  >
+    <FiSend className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
+  </button>
+</div>
+
         </div>
       </div>
 
       {/* Drag & Drop Section - Only show on non-mobile screens */}
-      {!isMobile && (
-        useCompactLayout ? (
+      {!isMobile &&
+        (useCompactLayout ? (
           <div
             ref={dropZoneRef}
             className={`mt-1 h-8 flex items-center justify-center rounded-lg border ${
@@ -295,8 +301,7 @@ const InputSection = ({ onSendMessage }) => {
               Or select files
             </button>
           </div>
-        )
-      )}
+        ))}
     </div>
   );
 };

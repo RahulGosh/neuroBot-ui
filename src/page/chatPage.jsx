@@ -102,7 +102,7 @@ const ChatPage = () => {
     <div className="flex h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
       <Resizable
         size={{ width: inputWidth, height: '100%' }}
-        minWidth={300}
+        minWidth={400}
         maxWidth={800}
         enable={{ right: true }}
         onResizeStop={(e, direction, ref, d) => {
