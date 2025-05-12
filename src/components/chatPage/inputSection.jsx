@@ -57,56 +57,6 @@ const InputSection = ({ onSendMessage }) => {
     }
   }, [input, isMobile, isCompactView]);
 
-  useEffect(() => {
-    const dropZone = dropZoneRef.current;
-
-    if (dropZone && !isMobile) {
-      const handleDragEnter = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDragging(true);
-      };
-
-      const handleDragOver = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.dataTransfer.dropEffect = "copy";
-        setIsDragging(true);
-      };
-
-      const handleDragLeave = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.currentTarget === e.target) {
-          setIsDragging(false);
-        }
-      };
-
-      const handleDrop = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDragging(false);
-
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-          const file = e.dataTransfer.files[0];
-          processFile(file);
-        }
-      };
-
-      dropZone.addEventListener("dragenter", handleDragEnter);
-      dropZone.addEventListener("dragover", handleDragOver);
-      dropZone.addEventListener("dragleave", handleDragLeave);
-      dropZone.addEventListener("drop", handleDrop);
-
-      return () => {
-        dropZone.removeEventListener("dragenter", handleDragEnter);
-        dropZone.removeEventListener("dragover", handleDragOver);
-        dropZone.removeEventListener("dragleave", handleDragLeave);
-        dropZone.removeEventListener("drop", handleDrop);
-      };
-    }
-  }, [isMobile]);
-
   const handleSend = () => {
     if (!input.trim() && !imagePreview) return;
     onSendMessage(input.trim(), imagePreview);
@@ -116,6 +66,13 @@ const InputSection = ({ onSendMessage }) => {
     if (textareaRef.current) {
       textareaRef.current.style.height =
         isMobile || isCompactView ? "40px" : "auto";
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
     }
   };
 
@@ -152,6 +109,77 @@ const InputSection = ({ onSendMessage }) => {
 
   const useCompactLayout = isMobile || isCompactView;
 
+  // For mobile, we only render the input bar (fixed at bottom)
+  if (isMobile) {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-2">
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={handleFileChange}
+        />
+
+        <div className="relative rounded-lg shadow-sm bg-light-sidebar dark:bg-gray-800">
+          {imagePreview && (
+            <div className="p-1 pl-2 flex items-center">
+              <div className="relative w-6 h-6 mr-1">
+                <img
+                  src={imagePreview.url}
+                  alt="Preview"
+                  className="w-full h-full object-cover rounded"
+                />
+                <button
+                  onClick={removeImagePreview}
+                  className="absolute -top-1 -right-1 bg-gray-800 hover:bg-red-500 rounded-full p-0.5 text-white"
+                >
+                  <span className="text-[0.6rem]">×</span>
+                </button>
+              </div>
+              <span className="text-[0.65rem] text-gray-500 truncate">
+                {imagePreview.name}
+              </span>
+            </div>
+          )}
+
+          <div className="flex">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="w-full py-2 px-3 text-base text-gray-800 dark:text-gray-200 bg-transparent focus:outline-none resize-none overflow-hidden min-h-[48px] max-h-[150px]"
+              placeholder="Type your message..."
+              rows="1"
+            />
+
+            <div className="flex items-start p-2">
+              <button
+                className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                onClick={handleAttachClick}
+              >
+                <FiPaperclip className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={handleSend}
+                disabled={!input.trim() && !imagePreview}
+                className={`p-1 ${
+                  input.trim() || imagePreview
+                    ? "text-blue-500 hover:text-blue-600"
+                    : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                <FiSend className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // For desktop, render the full component
   return (
     <div
       ref={containerRef}
@@ -200,39 +228,39 @@ const InputSection = ({ onSendMessage }) => {
             ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             className={`w-full py-1 sm:py-3 px-2 sm:px-4 text-[16px] sm:text-base text-gray-800 dark:text-gray-200 bg-transparent focus:outline-none resize-none overflow-hidden ${
               useCompactLayout ? "min-h-10" : ""
             }`}
             placeholder="Type your message..."
             rows="1"
             style={{
-              minHeight: useCompactLayout ? "48px" : "24px", // Increased from 40px to 48px
+              minHeight: useCompactLayout ? "48px" : "24px",
               maxHeight: "150px",
-              fontSize: "16px",
+              fontSize: useCompactLayout ? "14px" : "16px",
             }}
           />
 
-<div className={`flex items-start ${useCompactLayout ? "p-2" : "p-1 sm:p-2"}`}>
-  <button
-    className={`${useCompactLayout ? "p-2" : "p-1"} text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300`}
-    onClick={handleAttachClick}
-  >
-    <FiPaperclip className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
-  </button>
+          <div className={`flex items-start ${useCompactLayout ? "p-2" : "p-1 sm:p-2"}`}>
+            <button
+              className={`${useCompactLayout ? "p-2" : "p-1"} text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300`}
+              onClick={handleAttachClick}
+            >
+              <FiPaperclip className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
+            </button>
 
-  <button
-    onClick={handleSend}
-    disabled={!input.trim() && !imagePreview}
-    className={`${useCompactLayout ? "p-2" : "p-1"} ${
-      input.trim() || imagePreview
-        ? "text-blue-500 hover:text-blue-600"
-        : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
-    }`}
-  >
-    <FiSend className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
-  </button>
-</div>
-
+            <button
+              onClick={handleSend}
+              disabled={!input.trim() && !imagePreview}
+              className={`${useCompactLayout ? "p-2" : "p-1"} ${
+                input.trim() || imagePreview
+                  ? "text-blue-500 hover:text-blue-600"
+                  : "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              }`}
+            >
+              <FiSend className={`${useCompactLayout ? "w-5 h-5" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
+            </button>
+          </div>
         </div>
       </div>
 

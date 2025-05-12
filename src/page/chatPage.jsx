@@ -69,16 +69,14 @@ const ChatPage = () => {
   if (isMobile) {
     return (
       <div className="flex flex-col h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
-        {/* Header - removed since Layout has its own header */}
-        
-        {/* Messages container - takes up remaining space */}
         <div 
           ref={responseSectionRef}
           className="flex-1 overflow-y-auto pb-16 px-2"
-          style={{ 
+          style={{
+            paddingBottom: "120px", 
             WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none', // For Firefox
-            msOverflowStyle: 'none' // For IE/Edge
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none'
           }}
         >
           {/* Hide scrollbar for Chrome/Safari */}
