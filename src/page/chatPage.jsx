@@ -88,8 +88,6 @@ const ChatPage = () => {
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
           // Add these to handle iOS viewport issues
-          height: 'calc(100vh - 120px)',
-          maxHeight: 'calc(100vh - 120px)',
           overflowAnchor: 'none'
         }}
       >
