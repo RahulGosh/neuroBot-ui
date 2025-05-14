@@ -349,3 +349,13 @@ body.chat-page-active {
 .animate-pulse-once {
   animation: pulse-once 2s ease-in-out;
 }
+
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
+input, textarea {
+  font-size: 16px;
+}

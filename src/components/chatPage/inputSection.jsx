@@ -112,7 +112,7 @@ const InputSection = ({ onSendMessage }) => {
   // For mobile, we only render the input bar (fixed at bottom)
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-2">
+<div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-2 pb-safe">
         <input
           type="file"
           ref={fileInputRef}

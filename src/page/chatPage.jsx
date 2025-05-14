@@ -50,6 +50,16 @@ const ChatPage = () => {
     }
   });
 
+  useEffect(() => {
+  if (isMobile && responseSectionRef.current) {
+    // Scroll to bottom when keyboard appears
+    const timer = setTimeout(() => {
+      responseSectionRef.current.scrollTop = responseSectionRef.current.scrollHeight;
+    }, 300);
+    return () => clearTimeout(timer);
+  }
+}, [messages, isLoading, isMobile]);
+
   const handleSendMessage = (text, imageData = null) => {
     const newMessage = { text, image: imageData, isUser: true };
     const updatedMessages = [...messages, newMessage];
@@ -66,35 +76,39 @@ const ChatPage = () => {
     }, 1500);
   };
 
-  if (isMobile) {
-    return (
-      <div className="flex flex-col h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
-        <div 
-          ref={responseSectionRef}
-          className="flex-1 overflow-y-auto pb-16 px-2"
-          style={{
-            paddingBottom: "120px", 
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none', 
-            msOverflowStyle: 'none'
-          }}
-        >
-          {/* Hide scrollbar for Chrome/Safari */}
-          <style dangerouslySetInnerHTML={{ __html: `
-            .overflow-y-auto::-webkit-scrollbar {
-              display: none;
-            }
-          `}} />
-          <ResponseSection messages={messages} isLoading={isLoading} />
-        </div>
-        
-        {/* Fixed input at bottom */}
-        <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-dark-header border-t border-gray-200 dark:border-gray-700">
-          <InputSection onSendMessage={handleSendMessage} />
-        </div>
+ if (isMobile) {
+  return (
+    <div className="flex flex-col h-[100vh] overflow-hidden bg-light-sidebar dark:bg-dark-header relative">
+      <div 
+        ref={responseSectionRef}
+        className="flex-1 overflow-y-auto pb-16 px-2"
+        style={{
+          paddingBottom: "120px", 
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          // Add these to handle iOS viewport issues
+          height: 'calc(100vh - 120px)',
+          maxHeight: 'calc(100vh - 120px)',
+          overflowAnchor: 'none'
+        }}
+      >
+        {/* Hide scrollbar for Chrome/Safari */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .overflow-y-auto::-webkit-scrollbar {
+            display: none;
+          }
+        `}} />
+        <ResponseSection messages={messages} isLoading={isLoading} />
       </div>
-    );
-  }
+      
+      {/* Fixed input at bottom */}
+      <div className="fixed bottom-0 left-0 right-0 bg-light-sidebar dark:bg-dark-header border-t border-gray-200 dark:border-gray-700 pb-safe">
+        <InputSection onSendMessage={handleSendMessage} />
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="flex h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
