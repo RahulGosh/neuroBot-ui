@@ -75,7 +75,7 @@ const AiPage = () => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-full overflow-hidden bg-light-sidebar dark:bg-dark-header">
+      <div className="flex flex-col h-auto overflow-hidden bg-light-sidebar dark:bg-dark-header">
         {/* Messages container - takes up remaining space */}
         <div 
           ref={responseSectionRef}
