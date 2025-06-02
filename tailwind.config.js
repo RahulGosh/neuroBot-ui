@@ -11,7 +11,9 @@ module.exports = {
       },
       spacing: {
         'chat': 'calc(100vh - 8rem)',
+                'safe': 'env(safe-area-inset-bottom)',
       },
+      
       colors: {
         // Light theme colors (now first/default)
         'light-bg': '#f5f7fa',
